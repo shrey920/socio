@@ -1,0 +1,18 @@
+{%  extends 'base.html' %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}
+    {{ context.user }}
+{% endblock %}
+{% block body %}
+    {% if context.profile is not None %}
+        <img src="../{% thumbnail context.profile.picture 140x140 %}" width="200" height="200">
+        {% if context.valid %}<a href="{%  url 'profiles:editProfile' context.user.id %}"><button>Edit Profile</button></a>{% endif %}
+        <h1>{{ context.profile.firstName }}</h1>
+        <h1>{{ context.profile.lastName }}</h1>
+        <p>{{ context.profile.bio }}</p>
+    {% else %}
+        <h2>Profile of {{ context.user }} is not yet set.</h2>
+    {% endif %}
+{% endblock %}
