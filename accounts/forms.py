@@ -20,7 +20,6 @@ class LoginForm(AuthenticationForm):
         self.helper.layout = Layout(
             Field('username', placeholder="Enter Email", autofocus=""),
             Field('password', placeholder="Enter Password"),
-            Field('remember_me'),
             Submit('sign_in', 'Log in',
                    css_class="btn btn-lg btn-primary btn-block"),
             )

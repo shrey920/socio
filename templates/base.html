@@ -2,13 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% load staticfiles %}
+    {% load static %}
     <title>{% block title %}Title{% endblock %}</title>
+	<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+	<link href="{% static 'css/bootstrap-theme.css' %}" rel="stylesheet">
+	<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+	<link href="{% static 'css/animate.css' %}" rel="stylesheet">
+	<link href="{% static 'css/materialize.css' %}" rel="stylesheet">
+    <link href="{% static 'css/a.css' %}" rel="stylesheet">
+
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/materialize.js' %}"></script>
 {% block extra-head %}
 {% endblock %}
 </head>
 <body>
+<header id="header">
+    {% block navbar %}
+    <nav class="navbar navbar-inverse navbar-collapse center-align navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Socio</a>
+        </div>
+        <ul class="container nav navbar-nav ">
+          <li class="active"><a href="{% url 'socio:home' %}">Home</a></li>
+            {% if request.user != AnonymousUser %}
+          <li><a href="{% url 'profiles:friendRequests' request.user %} ">Friend Requests</a></li>
+            {% endif %}
+          <li><a href="#">Page 2</a></li>
+          <li><a href="#">Page 3</a></li>
+            <form class="container nav navbar-form" role="search">
+            <div class="form-group input-group">
+              <input type="text" class="form-control" placeholder="Search..">
+              <span class="input-group-btn ">
+                <button class="btn btn-default " type="button">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+            </form>
+        </ul>
+
+      <ul>
+          {% block logout %}
+          {% endblock %}
+      </ul>
+      </div>
+    </nav>
+    {% endblock %}
+
+  </header>
+  <!--/header-->
+
+
 {% block body %}
 {% endblock %}
 
 </body>
 </html>
+

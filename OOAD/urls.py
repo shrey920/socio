@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('socio.urls')),
     path('', include('accounts.urls')),
     path('', include('profiles.urls')),
+    # path('friendship', include('friendship.urls'))
 
 ]

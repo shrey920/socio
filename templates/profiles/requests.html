@@ -1,0 +1,18 @@
+{%  extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+    {% if all_requests %}
+        <ul>
+            {%  for r in all_requests %}
+                <li>{{ r.sender }}</li>
+                <a href="{% url 'profiles:acceptRequest' r.sender.id %}">
+                    <button class="btn-sm btn-primary">Accept</button>
+                </a>
+            {%  endfor %}
+        </ul>
+    {% else %}
+        <h3>No Requests</h3>
+    {%  endif %}
+    </div>
+{% endblock %}

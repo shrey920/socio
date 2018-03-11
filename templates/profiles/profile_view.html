@@ -1,18 +1,30 @@
 {%  extends 'base.html' %}
-{% load staticfiles %}
 {% load thumbnail %}
-{% load static %}
 {% block title %}
     {{ context.user }}
 {% endblock %}
+{% block logout %}
+    <li class="float-right"><a href="{% url 'accounts:logout' %}">Logout</a></li>
+{% endblock %}
 {% block body %}
+    <div class="container ">
     {% if context.profile is not None %}
-        <img src="../{% thumbnail context.profile.picture 140x140 %}" width="200" height="200">
-        {% if context.valid %}<a href="{%  url 'profiles:editProfile' context.user.id %}"><button>Edit Profile</button></a>{% endif %}
+        <img src="../{% thumbnail context.profile.picture 140x140 %}" width="200" height="200"><br>
+        {% if context.valid %}
+            <a href="{%  url 'profiles:editProfile' context.user.id %}"><button class="btn-primary btn-sm ">Edit Profile</button></a>
+        {% elif context.request %}
+            <p>Friend request sent</p>
+        {% else %}
+            <a href="{% url 'profiles:newFriendRequest' context.user.id %}"><button class="btn-primary btn-sm ">Send Friend Request</button></a>
+        {% endif %}
         <h1>{{ context.profile.firstName }}</h1>
         <h1>{{ context.profile.lastName }}</h1>
         <p>{{ context.profile.bio }}</p>
     {% else %}
-        <h2>Profile of {{ context.user }} is not yet set.</h2>
+        <h2>Profile of {{ context.user }} is not yet set. </h2>
+        {% if context.valid %}<a href="{%  url 'profiles:createProfile' context.user.id %}"><button>Add Profile</button></a>{% endif %}
     {% endif %}
+    </div>
+
+
 {% endblock %}

@@ -1,31 +1,41 @@
 from django.views import generic
-from django.shortcuts import redirect
+from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from .models import *
 # Create your views here.
 
+
 User = get_user_model()
 
-class ProfileView(generic.DetailView):
+class ProfileView(LoginRequiredMixin, generic.DetailView):
+    login_url = '/login'
     template_name='profiles/profile_view.html'
     context_object_name = 'context'
 
     def get_object(self, queryset=Profile.objects):
         user=User.objects.get(username=self.kwargs['username'])
         valid=False
+        request=False
+        if self.request.user == user:
+            valid = True
+        else:
+            sent=self.request.user.sender.all()
+            received=user.receiver.all()
+            if bool(set(sent) & set(received)):
+                request=True
         try:
             profile=Profile.objects.get(user=user)
-            if self.request.user == user:
-                valid=True
         except:
             profile=None
-        return {'profile' :profile,'user':user,'valid':valid}
+        return {'profile' :profile,'user':user,'valid':valid,'request':request}
 
-class UpdateProfileView(generic.UpdateView):
+class CreateProfileView(LoginRequiredMixin, generic.CreateView):
+    login_url = '/login'
     model=Profile
     fields=['firstName','lastName','bio','picture']
 
@@ -35,7 +45,7 @@ class UpdateProfileView(generic.UpdateView):
             try:
                 logout(request.user)
             except:
-                pass
+                return redirect('accounts:login')
             return redirect('socio:home')
         else:
             if request.method.lower() in self.http_method_names:
@@ -46,6 +56,60 @@ class UpdateProfileView(generic.UpdateView):
 
     def form_valid(self, form):
         user=User.objects.get(pk=self.kwargs['pk'])
+        form.instance.user=user
         if form.is_valid():
             form.save()
             return redirect('profiles:profileView',user)
+
+
+class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
+    login_url = '/login'
+    model=Profile
+    fields=['firstName','lastName','bio','picture']
+
+    def dispatch(self, request, *args, **kwargs):
+        user=User.objects.get(pk=self.kwargs['pk'])
+        if self.request.user != user:
+            try:
+                logout(request.user)
+            except:
+                return redirect('accounts:login')
+            return redirect('socio:home')
+        else:
+            if request.method.lower() in self.http_method_names:
+                handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+            else:
+                handler = self.http_method_not_allowed
+            return handler(request, *args, **kwargs)
+
+
+    def form_valid(self, form):
+        user=User.objects.get(pk=self.kwargs['pk'])
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect('profiles:profileView',user)
+
+@login_required(login_url = '/login')
+def newFriendRequest(request,pk):
+    sender=request.user
+    receiver=User.objects.get(pk=pk)
+    if sender != receiver:
+        f=Request(sender=sender,receiver=receiver)
+        f.save()
+    return redirect('profiles:profileView',receiver)
+
+class FriendRequestView(LoginRequiredMixin, generic.ListView):
+    template_name='profiles/requests.html'
+    context_object_name = 'all_requests'
+
+    def get_queryset(self):
+        user = User.objects.get(username=self.kwargs['username'])
+        return user.receiver.all()
+
+@login_required(login_url = '/login')
+def acceptRequest(request,pk):
+    sender=User.objects.get(pk=pk)
+    request.user.profile.friends.add(sender)
+    sender.profile.friends.add(request.user)
+    return redirect('profiles:newFriendRequest',request.user.id)
