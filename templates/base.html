@@ -12,6 +12,7 @@
 	<link href="{% static 'css/materialize.css' %}" rel="stylesheet">
     <link href="{% static 'css/a.css' %}" rel="stylesheet">
 
+    <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/materialize.js' %}"></script>
 {% block extra-head %}
@@ -28,24 +29,23 @@
         <ul class="container nav navbar-nav ">
           <li class="active"><a href="{% url 'socio:home' %}">Home</a></li>
             {% if request.user != AnonymousUser %}
-          <li><a href="{% url 'profiles:friendRequests' request.user %} ">Friend Requests</a></li>
+          <li><a href="{% url 'requests:friendRequests' request.user %} ">Friend Requests</a></li>
             {% endif %}
-          <li><a href="#">Page 2</a></li>
+          <li><a href="{% url 'message:messages' request.user %}">Messages</a></li>
           <li><a href="#">Page 3</a></li>
-            <form class="container nav navbar-form" role="search">
-            <div class="form-group input-group">
-              <input type="text" class="form-control" placeholder="Search..">
-              <span class="input-group-btn ">
-                <button class="btn btn-default " type="button">
-                  <span class="glyphicon glyphicon-search"></span>
-                </button>
-              </span>
-            </div>
+            <form class="navbar-form navbar-left" id="form" role="search" method="get" action="{% url 'profiles:allProfiles' %}">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchbar" name="q" value="{{ request.GET.q }}">
+                </div>
+                <button type="submit" class="btn btn-default" id="search">Search</button>
             </form>
         </ul>
 
       <ul>
           {% block logout %}
+              {% if request.user != 'AnonymousUser' %}
+              <li class="float-right"><a href="{% url 'accounts:logout' %}">Logout</a></li>
+              {% endif %}
           {% endblock %}
       </ul>
       </div>

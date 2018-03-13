@@ -20,19 +20,34 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
     def get_object(self, queryset=Profile.objects):
         user=User.objects.get(username=self.kwargs['username'])
         valid=False
-        request=False
+        friendship="no"
         if self.request.user == user:
             valid = True
         else:
-            sent=self.request.user.sender.all()
-            received=user.receiver.all()
+            sent=self.request.user.request_sender.all()
+            received=user.request_receiver.all()
             if bool(set(sent) & set(received)):
-                request=True
+                friendship="requested"
+            if user in set(self.request.user.profile.friends.all()):
+                friendship="friends"
         try:
             profile=Profile.objects.get(user=user)
         except:
             profile=None
-        return {'profile' :profile,'user':user,'valid':valid,'request':request}
+        return {'profile' :profile,'user':user,'valid':valid,'friendship':friendship}
+
+class AllProfilesView(LoginRequiredMixin, generic.ListView):
+    login_url = '/login'
+    template_name = 'profiles/allProfiles.html'
+    context_object_name = 'all_profiles'
+
+    def get_queryset(self):
+        query=self.request.GET['q']
+        firstname = Profile.objects.filter(firstName__contains=query)
+        lastName = Profile.objects.filter(lastName__contains=query)
+        q=firstname.union(lastName)
+        return q
+
 
 class CreateProfileView(LoginRequiredMixin, generic.CreateView):
     login_url = '/login'
@@ -90,26 +105,3 @@ class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
             form.save()
             return redirect('profiles:profileView',user)
 
-@login_required(login_url = '/login')
-def newFriendRequest(request,pk):
-    sender=request.user
-    receiver=User.objects.get(pk=pk)
-    if sender != receiver:
-        f=Request(sender=sender,receiver=receiver)
-        f.save()
-    return redirect('profiles:profileView',receiver)
-
-class FriendRequestView(LoginRequiredMixin, generic.ListView):
-    template_name='profiles/requests.html'
-    context_object_name = 'all_requests'
-
-    def get_queryset(self):
-        user = User.objects.get(username=self.kwargs['username'])
-        return user.receiver.all()
-
-@login_required(login_url = '/login')
-def acceptRequest(request,pk):
-    sender=User.objects.get(pk=pk)
-    request.user.profile.friends.add(sender)
-    sender.profile.friends.add(request.user)
-    return redirect('profiles:newFriendRequest',request.user.id)

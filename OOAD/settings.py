@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'braces',
     'authtools',
     'crispy_forms',
+    'message',
+    'requests',
     'accounts',
     'profiles',
     'socio',
