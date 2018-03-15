@@ -5,4 +5,4 @@ from django.urls import reverse_lazy
 
 class IndexView(generic.TemplateView):
     def dispatch(self, request, *args, **kwargs):
-        return redirect('profiles:profileView',self.request.user)
+        return redirect('posts:allPosts')

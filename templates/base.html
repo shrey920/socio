@@ -24,11 +24,11 @@
     <nav class="navbar navbar-inverse navbar-collapse center-align navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Socio</a>
+          <a class="navbar-brand" href="{% url 'socio:home' %}">Socio</a>
         </div>
         <ul class="container nav navbar-nav ">
-          <li class="active"><a href="{% url 'socio:home' %}">Home</a></li>
             {% if request.user != AnonymousUser %}
+          <li class="active"><a href="{% url 'profiles:profileView' request.user %}">Profile</a></li>
           <li><a href="{% url 'requests:friendRequests' request.user %} ">Friend Requests</a></li>
             {% endif %}
           <li><a href="{% url 'message:messages' request.user %}">Messages</a></li>

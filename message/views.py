@@ -44,4 +44,4 @@ class MessagesView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         user = User.objects.get(username=self.kwargs['username'])
-        return user.message_receiver.all()
+        return reversed(user.message_receiver.all())

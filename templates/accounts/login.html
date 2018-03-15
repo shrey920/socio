@@ -13,5 +13,8 @@
         {% csrf_token %}
         {% crispy form %}
     </div>
+    <div class ="container">
+        <h5>Dont have an account?</h5>
+        <a href="{% url 'accounts:signup' %}"><button class="btn">Sign up</button></a>
+    </div>
     {% endblock form %}
-</div>
