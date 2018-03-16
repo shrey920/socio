@@ -12,7 +12,7 @@ Posts
         <ul>
             {%  for m in all_posts %}
                 <div class="container mdi-border">
-                <li><a href="{% url 'profiles:profileView' m.owner %}"><img src="../{% thumbnail m.owner.profile.picture 140x140 %}" width="50" height="50">
+                <li><a href="{% url 'profiles:profileView' m.owner %}"><img src="../{{ m.owner.profile.picture }}" width="50" height="50">
                     {{ m.owner.profile.firstName }} {{ m.owner.profile.lastName }}
                 </a>
                 {% if m.owner == request.user %}
@@ -21,10 +21,21 @@ Posts
                     <a href="{% url 'posts:deletePost' m.pk %}"><button class="btn-primary btn-danger">Delete</button> </a>
                     </div>
                 {% endif %}
-                <br>
-                <img src="../{% thumbnail m.image 400x400 %}" width="400" height="400"><br>
+
+                {% if m.image %}
+                <img src="../{{ m.image }}  " width="400" height="400"><br>
+                {% endif %}
                 <div class="container mdi-border">
                     <p>{{ m.text }}</p>
+                </div>
+                    <br>
+                <div>
+                <button class="btn-primary btn-sm like-button" type="submit" href="{% url 'posts:likePost' m.id %}">
+                    {% if request.user in m.likes.all %}Unlike
+                    {% else %}Like
+                    {% endif %}:
+                {{ m.likes.count }}
+                </button>
                 </div>
                 </li>
                 </div>
@@ -35,4 +46,31 @@ Posts
         <h3>No Posts</h3>
     {%  endif %}
     </div>
+{% endblock %}
+
+{% block extra-head %}
+    <script>
+    $(document).ready(function () {
+        $('.like-button').click(function (e) {
+            e.preventDefault();
+            var likeUrl = $(this).attr('href');
+            $.ajax({
+                url: likeUrl,
+                method: "GET",
+                data: {},
+                success: function (data) {
+                    console.log(data);
+                    if(data.liked){
+                        $('.like-button').text(' Unlike: '+JSON.stringify(data.likes));
+                    }
+                    else{
+                         $('.like-button').text(' Like: '+JSON.stringify(data.likes));
+                    }
+                }, error:function (error) {
+                    console.log(error);
+                }
+            })
+        })
+    });
+    </script>
 {% endblock %}

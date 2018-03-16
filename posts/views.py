@@ -6,6 +6,9 @@ from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
 from .models import *
 # Create your views here.
 
@@ -76,4 +79,30 @@ class PostsView(LoginRequiredMixin, generic.ListView):
         print(p)
         for friend in self.request.user.profile.friends.all():
             p=p.union(set(friend.post_owner.all()))
-        return p
+        return set(reversed(list(p)))
+
+class LikePostView(LoginRequiredMixin, APIView):
+    login_url =  '/login'
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, pk, format=None):
+        post=Post.objects.get(pk=pk)
+        liked = False
+        likes = int(post.likes.count())
+
+        if request.user in post.likes.all():
+            likes = likes-1
+            liked = False
+            post.likes.remove(request.user)
+        else:
+            liked = True
+            likes = likes + 1
+            post.likes.add(request.user)
+
+        data = {
+            'liked': liked,
+            'likes': likes
+        }
+        return Response(data)
+
