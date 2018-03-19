@@ -76,7 +76,6 @@ class PostsView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         p=set(self.request.user.post_owner.all())
-        print(p)
         for friend in self.request.user.profile.friends.all():
             p=p.union(set(friend.post_owner.all()))
         return set(reversed(list(p)))

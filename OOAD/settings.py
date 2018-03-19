@@ -44,13 +44,14 @@ INSTALLED_APPS = [
     'braces',
     'authtools',
     'crispy_forms',
+    'easy_thumbnails',
+    'chat',
     'posts',
     'message',
     'requests',
     'accounts',
     'profiles',
     'socio',
-    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'OOAD.urls'
 

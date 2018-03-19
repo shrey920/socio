@@ -1,0 +1,32 @@
+{%  extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+Chats
+{% endblock %}
+{% block extra-head %}
+    <script>
+        $(document).ready(function () {
+            $('.chat').addClass('active');
+        })
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="container">
+    {% if all_chats %}
+        <ul>
+            {%  for chat in all_chats %}
+                <li>{% for m in chat.members.all %}
+                    {% if m != request.user %}
+                        <a href="{% url 'profiles:profileView' m %}"><img src="../{% thumbnail m.profile.picture 140x140 %}" width="50" height="50"></a>
+                        <a href="{% url 'chat:chats' chat.id %}">{{ m.profile.firstName }} {{ m.profile.lastName }} </a>
+                    {% endif %}
+                    {% endfor %}
+                </li>
+
+            {%  endfor %}
+        </ul>
+    {% else %}
+        <h3>No Chats</h3>
+    {%  endif %}
+    </div>
+{% endblock %}

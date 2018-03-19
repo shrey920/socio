@@ -3,6 +3,13 @@
 {% block title %}
 Messages
 {% endblock %}
+{% block extra-head %}
+    <script>
+        $(document).ready(function () {
+            $('.message').addClass('active');
+        })
+    </script>
+{% endblock %}
 {% block body %}
     <div class="container">
     {% if all_messages %}
@@ -11,6 +18,7 @@ Messages
                 <li><a href="{% url 'profiles:profileView' m.sender %}"><img src="../{% thumbnail m.sender.profile.picture 140x140 %}" width="50" height="50">
                     {{ m.sender.profile.firstName }} {{ m.sender.profile.lastName }}
                 </a>
+                    <p class="small">{{ m.date }}</p>
                 <div class="container mdi-border">
                     <p>{{ m.message }}</p>
                 </div>

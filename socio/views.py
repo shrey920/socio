@@ -5,4 +5,8 @@ from django.urls import reverse_lazy
 
 class IndexView(generic.TemplateView):
     def dispatch(self, request, *args, **kwargs):
-        return redirect('posts:allPosts')
+        try:
+            if request.user.profile:
+                return redirect('posts:allPosts')
+        except:
+            return redirect('profiles:profileView',request.user)

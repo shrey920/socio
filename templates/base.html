@@ -23,16 +23,14 @@
     {% block navbar %}
     <nav class="navbar navbar-inverse navbar-collapse center-align navbar-static-top">
       <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="{% url 'socio:home' %}">Socio</a>
-        </div>
         <ul class="container nav navbar-nav ">
+            <li class="home"><a class="navbar-brand" href="{% url 'socio:home' %}">Socio</a></li>
             {% if request.user != AnonymousUser %}
-          <li class="active"><a href="{% url 'profiles:profileView' request.user %}">Profile</a></li>
-          <li><a href="{% url 'requests:friendRequests' request.user %} ">Friend Requests</a></li>
+          <li class="profile"><a href="{% url 'profiles:profileView' request.user %}">Profile</a></li>
+          <li class="request"><a href="{% url 'requests:friendRequests' %} ">Friend Requests</a></li>
             {% endif %}
-          <li><a href="{% url 'message:messages' request.user %}">Messages</a></li>
-          <li><a href="#">Page 3</a></li>
+          <li class="message"><a href="{% url 'message:messages' request.user %}">Messages</a></li>
+          <li class="chat"><a href="{% url 'chat:chatRooms' %}">Chat</a></li>
             <form class="navbar-form navbar-left" id="form" role="search" method="get" action="{% url 'profiles:allProfiles' %}">
                 <div class="form-group">
                     <input type="text" class="form-control" id="searchbar" name="q" value="{{ request.GET.q }}">

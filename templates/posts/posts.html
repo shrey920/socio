@@ -1,5 +1,4 @@
 {%  extends 'base.html' %}
-{% load thumbnail %}
 {% block title %}
 Posts
 {% endblock %}
@@ -15,6 +14,7 @@ Posts
                 <li><a href="{% url 'profiles:profileView' m.owner %}"><img src="../{{ m.owner.profile.picture }}" width="50" height="50">
                     {{ m.owner.profile.firstName }} {{ m.owner.profile.lastName }}
                 </a>
+                <p class="small help-block">{{ m.date }}</p>
                 {% if m.owner == request.user %}
                     <div class="float-right">
                     <a href="{% url 'posts:editPost' m.pk %}"><button class="btn-primary btn-sm">Edit</button> </a>
@@ -51,6 +51,7 @@ Posts
 {% block extra-head %}
     <script>
     $(document).ready(function () {
+        $('.home').addClass('active');
         $('.like-button').click(function (e) {
             e.preventDefault();
             var likeUrl = $(this).attr('href');
@@ -59,7 +60,6 @@ Posts
                 method: "GET",
                 data: {},
                 success: function (data) {
-                    console.log(data);
                     if(data.liked){
                         $('.like-button').text(' Unlike: '+JSON.stringify(data.likes));
                     }
@@ -67,7 +67,7 @@ Posts
                          $('.like-button').text(' Like: '+JSON.stringify(data.likes));
                     }
                 }, error:function (error) {
-                    console.log(error);
+                    alert(error);
                 }
             })
         })

@@ -9,6 +9,11 @@
     {% if context.profile is not None %}
         <img src="../{% thumbnail context.profile.picture 140x140 %}" width="200" height="200"><br>
         {% if context.valid %}
+            <script>
+                $(document).ready(function () {
+                    $('.profile').addClass('active');
+                })
+            </script>
             <a href="{%  url 'profiles:editProfile' context.user.id %}"><button class="btn-primary btn-sm ">Edit Profile</button></a>
         {% elif context.friendship == 'friends' %}
             <p>{{ context.user }} is your friend.</p>

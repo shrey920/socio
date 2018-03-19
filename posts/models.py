@@ -9,3 +9,4 @@ class Post(models.Model):
     text = models.CharField(max_length=1000)
     image = models.ImageField(upload_to='static/posts', null=True, blank=True)
     likes = models.ManyToManyField(User,related_name="post_likes")
+    date = models.DateTimeField(auto_now=True, db_index=True)
