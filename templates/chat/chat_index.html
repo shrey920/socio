@@ -1,0 +1,127 @@
+{%  extends 'base.html' %}
+{% block title %}
+Chats
+{% endblock %}
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Django Realtime Chat Using Socket.IO and NodeJS</title>#}
+
+{#</head>#}s
+{% block body %}
+<body>
+
+<!-- change the IP to yours -->
+<script src="http://localhost:4000/socket.io/socket.io.js"></script>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="font-size:24px; text-shadow: 1px 1px 1px #000;">{{ room }}</div>
+                    <div id="messages-list" class="panel-body" style="height:520px;overflow-y:scroll;width:100%;">
+                        {% for message in messages %}
+                            {% if message.user == request.user %}
+                            <div class="text-right form-control">
+                                <p class=""> {{ message.text }}
+                                <sub style="font-size: xx-small">{{ message.date.time }}</sub></p>
+                            </div>
+                            {% else %}
+                            <div class="form-control">
+                                <p><span >
+                                    {{ message.user }}:
+                                </span>&emsp;
+                                {{ message.text }}
+                                    <sub style="font-size: xx-small">{{ message.date.time }}</sub></p>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar navbar-fixed-bottom">
+        <div class="container">
+            <form>
+                <div class="form-inline">
+                    <label class="hide" id="user" >{{ request.user }}</label>
+                    <input id="message" type="text" style="width: 80%" class="form-control" placeholder="Enter your message here" required maxlength="140" />
+                    <button type="submit" class="btn btn-info btn-sm">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script>
+
+    // host of the server
+    var host = 'localhost';
+    var nodejs_port = '4000';
+
+    var socket = io(host + ':' + nodejs_port);
+
+    // when the document is ready, scrolls down the page to the last page if there are messages
+    $(function() {
+        updateScroll();
+    });
+
+    $('.chat').addClass('active');
+    var user = $('#user').text();
+    // on the form submit
+    $('form').submit(function() {
+        // gets the elements by ids
+        var url = {% url 'chat:chat_save_message' %}
+        var msg = $('#message');
+        var room = {{ room.id }};
+        // if the message and the name aren't empty or aren't spaces,
+        if(msg.val() !== "" && user !== "") {
+            // creates the message object
+            msgObject = {
+                'room': room,
+                'user': user,
+                'message': msg.val(),
+                'date': new Date(),
+            };
+
+            // emits the msgObject to the server
+            socket.emit('message', msgObject);
+        }
+
+        // clear the message element
+        msg.val('');
+        // returns false to avoid the form to reload the page
+        return false;
+    });
+
+    // receives the message object from the server
+    socket.on('getMessage', function(msgObject) {
+        // gets the fields of the message
+        var name = msgObject.user;
+        var msg = msgObject.message;
+        var date = new Date(msgObject.date);
+        time = dateFormat(date, " h:MM tt");
+
+        if (name != user) {
+            new_message = '<div class="form-control">' + '<p><span >' + name + '</span>&emsp;' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p>' + '</div>'
+            // appends the message to the screen
+        }
+        else{
+            new_message ='<div class="text-right form-control"><p class="">' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p></div>'
+        }
+        $('#messages-list').append(new_message);
+        // updates the scroll
+        updateScroll();
+    });
+
+    function updateScroll(){
+        var element = document.getElementById("messages-list");
+        element.scrollTop = element.scrollHeight;
+    }
+</script>
+
+</body>
+{% endblock %}

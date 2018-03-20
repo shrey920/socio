@@ -8,7 +8,5 @@ app_name = 'chat'
 urlpatterns = [
     path('chat/',views.ChatRooms.as_view(),name='chatRooms'),
     path('chat/<pk>',views.chats,name='chats'),
-    path('chat/message/<pk>',views.CreateChatMessageView.as_view(),name='chatMessage'),
-
-
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('save_message/', views.save_message, name='chat_save_message'),
+]

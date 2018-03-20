@@ -2,61 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7370704-f5ca-47f0-af43-d4824c8f9498" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/chat/urls.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/chat/chat-rooms.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/chat/chats.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/static/js/dateFormat.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/templates/chat/chat_index.html" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/OOAD/settings.py" afterPath="$PROJECT_DIR$/OOAD/settings.py" />
-      <change beforePath="$PROJECT_DIR$/OOAD/urls.py" afterPath="$PROJECT_DIR$/OOAD/urls.py" />
+      <change beforePath="$PROJECT_DIR$/chat/urls.py" afterPath="$PROJECT_DIR$/chat/urls.py" />
+      <change beforePath="$PROJECT_DIR$/chat/views.py" afterPath="$PROJECT_DIR$/chat/views.py" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/message/models.py" afterPath="$PROJECT_DIR$/message/models.py" />
-      <change beforePath="$PROJECT_DIR$/posts/models.py" afterPath="$PROJECT_DIR$/posts/models.py" />
-      <change beforePath="$PROJECT_DIR$/posts/views.py" afterPath="$PROJECT_DIR$/posts/views.py" />
-      <change beforePath="$PROJECT_DIR$/requests/models.py" afterPath="$PROJECT_DIR$/requests/models.py" />
+      <change beforePath="$PROJECT_DIR$/message/urls.py" afterPath="$PROJECT_DIR$/message/urls.py" />
+      <change beforePath="$PROJECT_DIR$/profiles/urls.py" afterPath="$PROJECT_DIR$/profiles/urls.py" />
       <change beforePath="$PROJECT_DIR$/requests/urls.py" afterPath="$PROJECT_DIR$/requests/urls.py" />
-      <change beforePath="$PROJECT_DIR$/requests/views.py" afterPath="$PROJECT_DIR$/requests/views.py" />
-      <change beforePath="$PROJECT_DIR$/socio/views.py" afterPath="$PROJECT_DIR$/socio/views.py" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/FontAwesome.otf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/LICENSE.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Material-Design-Icons.eot" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Material-Design-Icons.svg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Material-Design-Icons.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Material-Design-Icons.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Material-Design-Icons.woff2" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Bold.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Bold.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Bold.woff2" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Light.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Light.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Light.woff2" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Medium.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Medium.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Medium.woff2" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Regular.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Regular.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Regular.woff2" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Thin.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Thin.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/Roboto-Thin.woff2" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/fontawesome-webfont.eot" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/fontawesome-webfont.svg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/fontawesome-webfont.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/fontawesome-webfont.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/profile_pics/2018-03-11/Dragon-Ball-Super-Episode-115-00133-Goku-Ultra-Instinct_POE8jrB.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/profile_pics/2018-03-11/sid.jpeg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/profile_pics/2018-03-11/ultra_instinct.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/profile_pics/2018-03-15/download_whJeWA4.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/socio/urls.py" afterPath="$PROJECT_DIR$/socio/urls.py" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change beforePath="$PROJECT_DIR$/templates/message/messages.html" afterPath="$PROJECT_DIR$/templates/message/messages.html" />
-      <change beforePath="$PROJECT_DIR$/templates/posts/posts.html" afterPath="$PROJECT_DIR$/templates/posts/posts.html" />
-      <change beforePath="$PROJECT_DIR$/templates/profiles/allProfiles.html" afterPath="$PROJECT_DIR$/templates/profiles/allProfiles.html" />
-      <change beforePath="$PROJECT_DIR$/templates/profiles/profile_view.html" afterPath="$PROJECT_DIR$/templates/profiles/profile_view.html" />
-      <change beforePath="$PROJECT_DIR$/templates/requests/requests.html" afterPath="$PROJECT_DIR$/templates/requests/requests.html" />
+      <change beforePath="$PROJECT_DIR$/venv/bin/chardetect" afterPath="$PROJECT_DIR$/venv/bin/chardetect" />
+      <change beforePath="$PROJECT_DIR$/venv/bin/pyjwt" afterPath="$PROJECT_DIR$/venv/bin/pyjwt" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/easy-install.pth" afterPath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/easy-install.pth" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -70,11 +29,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/socio/views.py">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chat/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="11" column="51" lean-forward="false" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+            <state relative-caret-position="0">
+              <caret line="1" column="32" lean-forward="false" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chat/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/nodejs/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="520">
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chat/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="31" column="31" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -82,41 +71,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/profiles/urls.py">
+      <file leaf-file-name="chats.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/chat/chats.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="11" column="89" lean-forward="false" selection-start-line="11" selection-start-column="89" selection-end-line="11" selection-end-column="89" />
-              <folding />
+            <state relative-caret-position="264">
+              <caret line="15" column="84" lean-forward="false" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="84" />
+              <folding>
+                <element signature="e#614#644#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/socio/urls.py">
+      <file leaf-file-name="chat_index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/chat/chat_index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="352">
+              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+              <folding>
+                <element signature="e#1029#1056#0#HTML" expanded="true" />
+                <element signature="e#1358#1364#0#HTML" expanded="true" />
+                <element signature="e#1995#2013#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chat/models.py">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/requests/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="330">
+              <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -148,6 +133,8 @@
       <find>button</find>
       <find>thum</find>
       <find>print</find>
+      <find>form</find>
+      <find>name</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -156,7 +143,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/socio/urls.py" />
         <option value="$PROJECT_DIR$/templates/accounts/signup.html" />
         <option value="$PROJECT_DIR$/accounts/urls.py" />
         <option value="$PROJECT_DIR$/templates/socio/index.html" />
@@ -165,13 +151,11 @@
         <option value="$PROJECT_DIR$/templates/accounts/auth_base.html" />
         <option value="$PROJECT_DIR$/templates/profiles/message_form.html" />
         <option value="$PROJECT_DIR$/templates/profiles/requests.html" />
-        <option value="$PROJECT_DIR$/message/urls.py" />
         <option value="$PROJECT_DIR$/message/admin.py" />
         <option value="$PROJECT_DIR$/templates/profiles/messages.html" />
         <option value="$PROJECT_DIR$/profiles/views.py" />
         <option value="$PROJECT_DIR$/profiles/admin.py" />
         <option value="$PROJECT_DIR$/requests/admin.py" />
-        <option value="$PROJECT_DIR$/profiles/urls.py" />
         <option value="$PROJECT_DIR$/accounts/views.py" />
         <option value="$PROJECT_DIR$/profiles/models.py" />
         <option value="$PROJECT_DIR$/templates/accounts/login.html" />
@@ -190,18 +174,25 @@
         <option value="$PROJECT_DIR$/requests/models.py" />
         <option value="$PROJECT_DIR$/message/models.py" />
         <option value="$PROJECT_DIR$/templates/requests/requests.html" />
-        <option value="$PROJECT_DIR$/requests/urls.py" />
         <option value="$PROJECT_DIR$/templates/message/messages.html" />
-        <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/chat/chat-rooms.html" />
         <option value="$PROJECT_DIR$/OOAD/settings.py" />
         <option value="$PROJECT_DIR$/posts/views.py" />
-        <option value="$PROJECT_DIR$/chat/urls.py" />
-        <option value="$PROJECT_DIR$/chat/views.py" />
-        <option value="$PROJECT_DIR$/templates/chat/chats.html" />
         <option value="$PROJECT_DIR$/socio/views.py" />
         <option value="$PROJECT_DIR$/chat/models.py" />
         <option value="$PROJECT_DIR$/requests/views.py" />
+        <option value="$PROJECT_DIR$/requests/urls.py" />
+        <option value="$PROJECT_DIR$/socio/urls.py" />
+        <option value="$PROJECT_DIR$/profiles/urls.py" />
+        <option value="$PROJECT_DIR$/message/urls.py" />
+        <option value="$PROJECT_DIR$/static/css/bootstrap.min.css" />
+        <option value="$PROJECT_DIR$/chat/urls.py" />
+        <option value="$PROJECT_DIR$/chat/views.py" />
+        <option value="$PROJECT_DIR$/templates/chat/chats.html" />
+        <option value="$PROJECT_DIR$/templates/chat/chat_index.html" />
+        <option value="$PROJECT_DIR$/static/js/dateFormat.js" />
+        <option value="$PROJECT_DIR$/templates/base.html" />
+        <option value="$PROJECT_DIR$/nodejs/index.js" />
       </list>
     </option>
   </component>
@@ -210,6 +201,9 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/nodejs/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="950" />
@@ -230,7 +224,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -251,7 +245,23 @@
             <path>
               <item name="OOAD" type="b2602c69:ProjectViewProjectNode" />
               <item name="OOAD" type="462c0819:PsiDirectoryNode" />
+              <item name="chat1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOAD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOAD" type="462c0819:PsiDirectoryNode" />
+              <item name="chat1" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOAD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOAD" type="462c0819:PsiDirectoryNode" />
               <item name="message" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOAD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOAD" type="462c0819:PsiDirectoryNode" />
+              <item name="nodejs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OOAD" type="b2602c69:ProjectViewProjectNode" />
@@ -282,6 +292,12 @@
               <item name="OOAD" type="b2602c69:ProjectViewProjectNode" />
               <item name="OOAD" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOAD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOAD" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OOAD" type="b2602c69:ProjectViewProjectNode" />
@@ -322,7 +338,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -333,6 +349,9 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/chat" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/requests" />
       <recent name="$PROJECT_DIR$/templates/message" />
@@ -411,7 +430,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32855567" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32855567" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32745314" sideWeight="0.49784714" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31485468" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3196986" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -462,45 +481,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/profile_pics/2018-03-09/Dragon-Ball-Super-Episode-115-00133-Goku-Ultra-Instinct.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/profile_pics/2018-03-09/Dragon-Ball-Super-Episode-115-00133-Goku-Ultra-Instinct.jpg.140x140_q85_crop.jpg" />
-    <entry file="file://$PROJECT_DIR$/static/profile_pics/2018-03-09/Dragon-Ball-Super-Episode-115-00133-Goku-Ultra-Instinct.jpg.140x140_q85.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/animate.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/animate.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/a.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/socio/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -534,13 +514,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/accounts/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -638,13 +611,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/message/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/message/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -693,26 +659,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requests/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/requests/requests.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="32" column="58" lean-forward="false" selection-start-line="32" selection-start-column="58" selection-end-line="32" selection-end-column="58" />
           <folding />
         </state>
       </provider>
@@ -722,26 +672,6 @@
         <state relative-caret-position="-394">
           <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="65" lean-forward="false" selection-start-line="10" selection-start-column="65" selection-end-line="10" selection-end-column="65" />
-          <folding>
-            <element signature="e#0#28#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -779,20 +709,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/chat/chats.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="52" lean-forward="true" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
-          <folding>
-            <element signature="e#335#364#0#HTML" expanded="false" />
-            <element signature="e#409#436#0#HTML" expanded="false" />
-            <element signature="e#614#644#0#HTML" expanded="false" />
-            <element signature="e#697#724#0#HTML" expanded="false" />
-            <element signature="e#943#964#0#HTML" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/chat/chat-rooms.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -801,28 +717,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/socio/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/profiles/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="11" column="89" lean-forward="false" selection-start-line="11" selection-start-column="89" selection-end-line="11" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/socio/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
+        <state relative-caret-position="0">
           <caret line="11" column="51" lean-forward="false" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -835,18 +735,164 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat/models.py">
+    <entry file="file://$PROJECT_DIR$/requests/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+        <state relative-caret-position="858">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat1/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="28" lean-forward="true" selection-start-line="0" selection-start-column="28" selection-end-line="0" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requests/views.py">
+    <entry file="file://$PROJECT_DIR$/requests/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="28" lean-forward="false" selection-start-line="0" selection-start-column="28" selection-end-line="0" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socio/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="42" lean-forward="false" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/profiles/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="1" lean-forward="false" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#28#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/message/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#28#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/accounts/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat1/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat1/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/bootstrap.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="4" column="431" lean-forward="false" selection-start-line="4" selection-start-column="431" selection-end-line="4" selection-end-column="431" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="1" column="32" lean-forward="false" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="31" column="31" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/chat/chats.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="15" column="84" lean-forward="false" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="84" />
+          <folding>
+            <element signature="e#614#644#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/dateFormat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="111" column="0" lean-forward="true" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/chat/chat_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding>
+            <element signature="e#1029#1056#0#HTML" expanded="true" />
+            <element signature="e#1358#1364#0#HTML" expanded="true" />
+            <element signature="e#1995#2013#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodejs/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
