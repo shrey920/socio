@@ -103,16 +103,18 @@ Chats
         var name = msgObject.user;
         var msg = msgObject.message;
         var date = new Date(msgObject.date);
+        var room = msgObject.room;
         time = dateFormat(date, " h:MM tt");
-
-        if (name != user) {
-            new_message = '<div class="form-control">' + '<p><span >' + name + '</span>&emsp;' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p>' + '</div>'
-            // appends the message to the screen
+        if(room == {{ room.id }}) {
+            if (name != user) {
+                new_message = '<div class="form-control">' + '<p><span >' + name + '</span>&emsp;' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p>' + '</div>'
+                // appends the message to the screen
+            }
+            else {
+                new_message = '<div class="text-right form-control"><p class="">' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p></div>'
+            }
+            $('#messages-list').append(new_message);
         }
-        else{
-            new_message ='<div class="text-right form-control"><p class="">' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p></div>'
-        }
-        $('#messages-list').append(new_message);
         // updates the scroll
         updateScroll();
     });
