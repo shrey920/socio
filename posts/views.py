@@ -87,7 +87,6 @@ class LikePostView(LoginRequiredMixin, APIView):
 
     def get(self, request, pk, format=None):
         post=Post.objects.get(pk=pk)
-        liked = False
         likes = int(post.likes.count())
 
         if request.user in post.likes.all():
@@ -105,3 +104,22 @@ class LikePostView(LoginRequiredMixin, APIView):
         }
         return Response(data)
 
+class CommentPostView(LoginRequiredMixin, APIView):
+    login_url =  '/login'
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, pk, format=None):
+        post=Post.objects.get(pk=pk)
+
+        comment = Comment()
+        comment.post = post
+        comment.owner = request.user
+        comment.text = request.GET['text']
+
+        comment.save()
+        data={
+            'text':comment.text,
+        }
+
+        return Response(data)

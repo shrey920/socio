@@ -10,3 +10,8 @@ class Post(models.Model):
     image = models.ImageField(upload_to='static/posts', null=True, blank=True)
     likes = models.ManyToManyField(User,related_name="post_likes")
     date = models.DateTimeField(auto_now=True, db_index=True)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete= models.CASCADE, related_name="comment_post")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_owner")
+    text = models.CharField(max_length=100)

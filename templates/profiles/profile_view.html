@@ -15,6 +15,7 @@
                 })
             </script>
             <a href="{%  url 'profiles:editProfile' context.user.id %}"><button class="btn-primary btn-sm ">Edit Profile</button></a>
+            <a href="{% url 'profiles:friendList' %}"><button class="btn-info">Friend List</button></a>
         {% elif context.friendship == 'friends' %}
             <p>{{ context.user }} is your friend.</p>
             <a href="{% url 'message:createMessage' context.user %}"><button class="btn-primary">Message</button> </a>

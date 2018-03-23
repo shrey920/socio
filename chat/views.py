@@ -10,6 +10,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import json
+import threading
+
 
 # Create your views here.
 
@@ -27,6 +29,8 @@ class ChatRooms(LoginRequiredMixin, generic.ListView):
 @login_required(login_url='/login')
 def chats(request,pk):
     room = ChatRoom.objects.get(pk=pk)
+    if  request.user not in room.members.all():
+        return redirect('socio:home')
     cmsgs = ChatMessage.objects.filter(room=room).order_by('-date')[:50]
     msgs = []
     for msg in reversed(cmsgs):
@@ -37,26 +41,8 @@ def chats(request,pk):
     context['user'] = request.user
     return render(request, 'chat/chat_index.html', context)
 
-class CreateChatMessageView(LoginRequiredMixin, APIView):
-    login_url =  '/login'
-    authentication_classes = (authentication.SessionAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, pk,  format=None):
-        room = ChatRoom.objects.get(pk=pk)
-        user = User.objects.get(pk=request.GET['user_id'])
-        text = request.GET['text']
-        message = ChatMessage()
-        message.room = room
-        message.user = user
-        message.text = text
-        message.save()
-        context = {
-            'room':room.eid,
-        }
-        return Response(context)
-
-@csrf_exempt
+@login_required(login_url="/login")
 def save_message(request):
     # if the request method is a POST request
     if request.method == 'POST':
@@ -71,18 +57,8 @@ def save_message(request):
         msg.user = User.objects.get(username=msg_obj['user'])
         msg.text = msg_obj['message']
         msg.save()
-                # = ChatMessage.objects.create(user=msg_obj['user_name'], message=msg_obj['message'])
-        # if some error occurs it will print the error in the django console and return a HttpResponse
-        # containing a error value, which will be received by nodejs socket.io
-        # except:
-        #     print("error saving message")
-        #     return HttpResponse("error")
 
-        # if there aren't any errors, it returns a HttpResponse containing a success value, which will
-        # be received by nodejs socket.io
         return HttpResponse("success")
 
-    # if it is a GET request (someone trying to access to the link or something)
-    # returns to the main page without doing anything
     else:
         return HttpResponseRedirect('/')

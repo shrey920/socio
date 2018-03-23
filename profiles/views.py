@@ -105,3 +105,24 @@ class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
             form.save()
             return redirect('profiles:profileView',user)
 
+
+
+@login_required(login_url='/login')
+def friendList(request):
+    context={
+        'all_friends':request.user.profile.friends.all()
+    }
+    return render(request,'profiles/friendList.html',context)
+
+@login_required(login_url='/login')
+def removeFriend(request,pk):
+    friend=User.objects.get(pk=pk)
+    if friend not in request.user.profile.friends.all():
+        return redirect('socio:home')
+    for room in request.user.chatroom_set.all():
+        if room.members.count() == 2:
+            if (request.user in room.members.all()) and (friend in room.members.all()):
+                room.delete()
+    request.user.profile.friends.remove(friend)
+    friend.profile.friends.remove(request.user)
+    return redirect('profiles:friendList')
