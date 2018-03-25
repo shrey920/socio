@@ -11,6 +11,7 @@ urlpatterns = [
     path('groups/leave/<pk>', views.leaveGroup, name="leaveGroup"),
     path('groups/members/<pk>', views.addMember, name="members"),
     path('groups/add-member/<pk>', views.AddMemberView.as_view(), name="addMember"),
+    path('groups/add-admin/<pk>', views.AddAdminView.as_view(), name="addAdmin"),
     path('groups/<name>',views.GroupView.as_view(),name="groupDetail"),
     path('groups/createPost/<pk>',views.CreatePost.as_view(),name="createPost"),
 

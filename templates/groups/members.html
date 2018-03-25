@@ -16,6 +16,15 @@
                     Add
                 {% endif %}
             </button>
+            {% if friend in group.members.all %}
+            <button class="btn-sm btn-primary float-right add-admin" href="{% url 'groups:addAdmin' group.pk %}" friend="{{ friend }}">
+                {% if friend in group.admin.all %}
+                    Remove Admin
+                {% else %}
+                    Make Admin
+                {% endif %}
+            </button>
+            {% endif %}
             </li>
         {%  endfor %}
     </ul>
@@ -35,10 +44,34 @@
                     },
                     success: function (data) {
                         if(data.status == 'added'){
+                            button.next().removeClass('hide');
                             button.text('Remove');
                         }
                         else{
+                            button.next().addClass('hide');
                             button.text('Add');
+                        }
+                    }, error: function (error) {
+                        alert(error);
+                    }
+                })
+            });
+            $('.add-admin').click(function (e) {
+                e.preventDefault();
+                var Url = $(this).attr('href');
+                var button = $(this);
+                $.ajax({
+                    url: Url,
+                    method: "GET",
+                    data: {
+                        'friend': button.attr('friend'),
+                    },
+                    success: function (data) {
+                        if(data.status == 'added'){
+                            button.text('Remove Admin');
+                        }
+                        else{
+                            button.text('Make Admin');
                         }
                     }, error: function (error) {
                         alert(error);

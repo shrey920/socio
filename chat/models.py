@@ -6,7 +6,7 @@ User=settings.AUTH_USER_MODEL
 class ChatRoom(models.Model):
     eid = models.CharField(max_length=64, unique=True)
     members = models.ManyToManyField(User)
-    group = models.OneToOneField(Group,null=True,on_delete=models.CASCADE)
+    group = models.OneToOneField(Group, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.eid
