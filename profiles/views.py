@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import *
+from groups.models import *
+from posts.models import *
 # Create your views here.
 
 
@@ -34,7 +36,11 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
             profile=Profile.objects.get(user=user)
         except:
             profile=None
-        return {'profile' :profile,'user':user,'valid':valid,'friendship':friendship}
+
+        p = set(user.post_owner.all())
+        p = reversed(list(p))
+
+        return {'profile' :profile,'user':user,'valid':valid,'friendship':friendship, 'all_posts': p}
 
 class AllProfilesView(LoginRequiredMixin, generic.ListView):
     login_url = '/login'
@@ -45,7 +51,9 @@ class AllProfilesView(LoginRequiredMixin, generic.ListView):
         query=self.request.GET['q']
         firstname = Profile.objects.filter(firstName__contains=query)
         lastName = Profile.objects.filter(lastName__contains=query)
-        q=firstname.union(lastName)
+        groupName = Group.objects.filter(name__contains=query)
+        q=list(firstname.union(lastName))
+        q.extend(list(groupName))
         return q
 
 
@@ -100,7 +108,6 @@ class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
 
     def form_valid(self, form):
         user=User.objects.get(pk=self.kwargs['pk'])
-        print(form)
         if form.is_valid():
             form.save()
             return redirect('profiles:profileView',user)

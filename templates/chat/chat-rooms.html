@@ -15,12 +15,17 @@ Chats
     {% if all_chats %}
         <ul>
             {%  for chat in all_chats %}
-                <li>{% for m in chat.members.all %}
-                    {% if m != request.user %}
-                        <a href="{% url 'profiles:profileView' m %}"><img src="../{% thumbnail m.profile.picture 140x140 %}" width="50" height="50"></a>
-                        <a href="{% url 'chat:chats' chat.id %}">{{ m.profile.firstName }} {{ m.profile.lastName }} </a>
+                <li>{% if chat.group %}
+                        <a href="{% url 'groups:groupDetail' chat.group %}"><img src="../{% thumbnail chat.group.picture 140x140 %}" width="50" height="50"></a>
+                        <a href="{% url 'chat:chats' chat.id %}">{{ chat.group.name }} </a>
+                    {% else %}
+                        {% for m in chat.members.all %}
+                        {% if m != request.user %}
+                            <a href="{% url 'profiles:profileView' m %}"><img src="../{% thumbnail m.profile.picture 140x140 %}" width="50" height="50"></a>
+                            <a href="{% url 'chat:chats' chat.id %}">{{ m.profile.firstName }} {{ m.profile.lastName }} </a>
+                        {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    {% endfor %}
                 </li>
 
             {%  endfor %}

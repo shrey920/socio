@@ -24,7 +24,8 @@ class ChatRooms(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return reversed(user.chatroom_set.all())
+        q = user.chatroom_set.all()
+        return q
 
 @login_required(login_url='/login')
 def chats(request,pk):
@@ -41,11 +42,11 @@ def chats(request,pk):
     context['user'] = request.user
     return render(request, 'chat/chat_index.html', context)
 
-
-@login_required(login_url="/login")
+@csrf_exempt
 def save_message(request):
     # if the request method is a POST request
     if request.method == 'POST':
+        print('hi')
         # content sent via XMLHttpRequests can be accessed in request.body
         # and it comes in a JSON string, that's why we use json library to
         # turn it into a normal dictionary again
@@ -57,6 +58,7 @@ def save_message(request):
         msg.user = User.objects.get(username=msg_obj['user'])
         msg.text = msg_obj['message']
         msg.save()
+        print(msg)
 
         return HttpResponse("success")
 

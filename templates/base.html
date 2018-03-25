@@ -32,12 +32,13 @@
             {% endif %}
           <li class="message"><a href="{% url 'message:messages' request.user %}">Messages</a></li>
           <li class="chat"><a href="{% url 'chat:chatRooms' %}">Chat</a></li>
-            <form class="navbar-form navbar-left" id="form" role="search" method="get" action="{% url 'profiles:allProfiles' %}">
+          <li class="group"><a href="{% url 'groups:groupList' %}">Groups</a></li>
+          <li><form class="navbar-form navbar-left" id="form" role="search" method="get" action="{% url 'profiles:allProfiles' %}">
                 <div class="form-group">
                     <input type="text" class="form-control" id="searchbar" name="q" value="{{ request.GET.q }}">
                 </div>
                 <button type="submit" class="btn btn-default" id="search">Search</button>
-            </form>
+            </form></li>
         </ul>
 
       <ul>

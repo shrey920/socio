@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'message',
     'requests',
     'accounts',
+    'groups',
     'profiles',
     'socio',
 ]

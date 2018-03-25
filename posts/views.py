@@ -78,7 +78,7 @@ class PostsView(LoginRequiredMixin, generic.ListView):
         p=set(self.request.user.post_owner.all())
         for friend in self.request.user.profile.friends.all():
             p=p.union(set(friend.post_owner.all()))
-        return set(reversed(list(p)))
+        return reversed(list(p))
 
 class LikePostView(LoginRequiredMixin, APIView):
     login_url =  '/login'

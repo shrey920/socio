@@ -107,7 +107,7 @@ Chats
         time = dateFormat(date, " h:MM tt");
         if(room == {{ room.id }}) {
             if (name != user) {
-                new_message = '<div class="form-control">' + '<p><span >' + name + '</span>&emsp;' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p>' + '</div>'
+                new_message = '<div class="form-control">' + '<p><span >' + name + ':</span>&emsp;' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p>' + '</div>'
                 // appends the message to the screen
             }
             else {

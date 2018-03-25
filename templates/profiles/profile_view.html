@@ -19,6 +19,7 @@
         {% elif context.friendship == 'friends' %}
             <p>{{ context.user }} is your friend.</p>
             <a href="{% url 'message:createMessage' context.user %}"><button class="btn-primary">Message</button> </a>
+            <a href="{% url 'profiles:removeFriend' context.user.id %}"><button class="btn-primary">Unfriend</button> </a>
         {% elif context.friendship == 'requested' %}
             <p>Friend request sent</p>
         {% else %}
@@ -27,6 +28,64 @@
         <h1>{{ context.profile.firstName }}</h1>
         <h1>{{ context.profile.lastName }}</h1>
         <p>{{ context.profile.bio }}</p>
+
+        <div>
+        <h3>{{ context.profile.firstName }}'s Posts</h3>
+            {% if context.all_posts %}
+            <ul>
+                {%  for m in context.all_posts %}
+                    <li><div class="container mdi-border">
+                    {% if m.group %}
+                        <a href="{% url 'groups:groupDetail' m.group.name %}"><img src="../{% thumbnail m.group.picture 140x140 %}" width="100" height="100">{{ m.group.name }}</a><br>
+                    {% endif %}
+                    <a href="{% url 'profiles:profileView' m.owner %}"><img src="../{{ m.owner.profile.picture }}" width="50" height="50">
+                        {{ m.owner.profile.firstName }} {{ m.owner.profile.lastName }}
+                    </a>
+                    <p class="small help-block">{{ m.date }}</p>
+                    {% if m.owner == request.user %}
+                        <div class="float-right">
+                        <a href="{% url 'posts:editPost' m.pk %}"><button class="btn-primary btn-sm">Edit</button> </a>
+                        <a href="{% url 'posts:deletePost' m.pk %}"><button class="btn-primary btn-danger">Delete</button> </a>
+                        </div>
+                    {% endif %}
+
+                    {% if m.image %}
+                    <img src="../{{ m.image }}  " width="400" height="400"><br>
+                    {% endif %}
+                    <div class="container mdi-border">
+                        <p>{{ m.text }}</p>
+                    </div>
+                        <br>
+                    <div>
+                    <button class="btn-primary btn-sm like-button" type="submit" href="{% url 'posts:likePost' m.id %}">
+                        {% if request.user in m.likes.all %}Unlike
+                        {% else %}Like
+                        {% endif %}:
+                    {{ m.likes.count }}
+                    </button>
+                    <br><br>
+                    </div>
+                    <div class="comments">
+                        {% for comment in m.comment_post.all %}
+                            <a href="{% url 'profiles:profileView' comment.owner %}"><img src="../{{ comment.owner.profile.picture }}" width="50" height="50">{{ comment.owner.profile.firstName }} {{ comment.owner.profile.lastName }}</a>
+                            <p class="comment">{{ comment.text }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="comment-form">
+                        <input class="comment-text" type="text" placeholder="Add a Comment">
+                        <input class="btn-sm comment-button" type="submit" href="{% url 'posts:commentPost' m.id %}" value="Comment">
+                    </div>
+                    </div>
+                    </li>
+
+
+                {%  endfor %}
+            </ul>
+            {% else %}
+            <h3>No Posts</h3>
+        {%  endif %}
+        </div>
+
     {% else %}
         <h2>Profile of {{ context.user }} is not yet set. </h2>
         {% if context.valid %}<a href="{%  url 'profiles:createProfile' context.user.id %}"><button>Add Profile</button></a>{% endif %}
@@ -34,4 +93,51 @@
     </div>
 
 
+{% endblock %}
+
+{% block extra-head %}
+    <script>
+    $(document).ready(function () {
+        $('.like-button').click(function (e) {
+            e.preventDefault();
+            var likeUrl = $(this).attr('href');
+            var like=$(this);
+            $.ajax({
+                url: likeUrl,
+                method: "GET",
+                data: {},
+                success: function (data) {
+                    if(data.liked){
+                        like.text(' Unlike : '+JSON.stringify(data.likes));
+                    }
+                    else{
+                         like.text(' Like : '+JSON.stringify(data.likes));
+                    }
+                }, error:function (error) {
+                    alert(error);
+                }
+            })
+        });
+        $('.comment-button').click(function (e) {
+            e.preventDefault();
+            var Url = $(this).attr('href');
+            comment_text=$(this).prev();
+            comment_div = $(this).parent().siblings('.comments');
+            $.ajax({
+                url: Url,
+                method: "GET",
+                data: {
+                    'text': comment_text.val(),
+                },
+                success: function (data) {
+                    comment='<a href="/profiles/{{ request.user }}"><img src="../{{ request.user.profile.picture }}" width="50" height="50">{{ request.user.profile.firstName }} {{ request.user.profile.lastName }}</a><p class="comment">'+data.text+'</p>'
+                    comment_div.append(comment);
+                    comment_text.val('');
+                }, error:function (error) {
+                    console.log(error);
+                }
+            })
+        });
+    });
+    </script>
 {% endblock %}

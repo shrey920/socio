@@ -1,0 +1,50 @@
+{%  extends 'base.html' %}
+{% load thumbnail %}
+{% block body %}
+    <div class="container">
+        <a href="{% url 'groups:groupDetail' group.name %}"><button class="btn btn-info">Group Page</button> </a>
+    <h2>Here are your Friends</h2>
+    <ul>
+        {%  for friend in request.user.profile.friends.all %}
+            <li><a href="{% url 'profiles:profileView' friend %}"><img src="/../{% thumbnail friend.profile.picture 140x140 %}" width="100" height="100">
+                {{ friend.profile.firstName }} {{ friend.profile.lastName }}
+            </a>
+            <button class="btn-sm btn-primary float-right add-member" href="{% url 'groups:addMember' group.pk %}" friend="{{ friend }}">
+                {% if friend in group.members.all %}
+                    Remove
+                {% else %}
+                    Add
+                {% endif %}
+            </button>
+            </li>
+        {%  endfor %}
+    </ul>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.group').addClass('active');
+            $('.add-member').click(function (e) {
+                e.preventDefault();
+                var Url = $(this).attr('href');
+                var button = $(this);
+                $.ajax({
+                    url: Url,
+                    method: "GET",
+                    data: {
+                        'friend': button.attr('friend'),
+                    },
+                    success: function (data) {
+                        if(data.status == 'added'){
+                            button.text('Remove');
+                        }
+                        else{
+                            button.text('Add');
+                        }
+                    }, error: function (error) {
+                        alert(error);
+                    }
+                })
+            });
+        });
+    </script>
+{% endblock %}
