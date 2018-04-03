@@ -1,26 +1,30 @@
 {%  extends 'base.html' %}
+{% load thumbnail %}
 {% block title %}
 Chats
 {% endblock %}
 
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Django Realtime Chat Using Socket.IO and NodeJS</title>#}
 
-{#</head>#}s
 {% block body %}
 <body>
-
-<!-- change the IP to yours -->
 <script src="http://localhost:4000/socket.io/socket.io.js"></script>
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-primary">
-                    <div class="panel-heading" style="font-size:24px; text-shadow: 1px 1px 1px #000;">{{ room }}</div>
+                    <div class="panel-heading" style="font-size:24px; text-shadow: 1px 1px 1px #000;">
+                        {% if room.group %}
+                            <a href="{% url 'groups:groupDetail' room.group.name %}"><img src="../{% thumbnail room.group.picture 140x140 %}" width="100" height="100">{{ room.group.name }}<br>
+                        {% else %}
+                            {% for m in room.members.all %}
+                            {% if request.user != m %}
+                            <a href="{% url 'profiles:profileView' m %}"><img src="../{{ m.profile.picture }}" width="50" height="50">
+                                {{ m.profile.firstName }} {{ m.profile.lastName }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </a></div>
                     <div id="messages-list" class="panel-body" style="height:520px;overflow-y:scroll;width:100%;">
                         {% for message in messages %}
                             {% if message.user == request.user %}

@@ -59,7 +59,7 @@ class UpdateGroupView(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         if form.is_valid():
             form.save()
-            return redirect('groups:groupView',form.instance.name)
+            return redirect('groups:groupDetail',form.instance.name)
 
 
 

@@ -46,7 +46,6 @@ def chats(request,pk):
 def save_message(request):
     # if the request method is a POST request
     if request.method == 'POST':
-        print('hi')
         # content sent via XMLHttpRequests can be accessed in request.body
         # and it comes in a JSON string, that's why we use json library to
         # turn it into a normal dictionary again
@@ -58,7 +57,6 @@ def save_message(request):
         msg.user = User.objects.get(username=msg_obj['user'])
         msg.text = msg_obj['message']
         msg.save()
-        print(msg)
 
         return HttpResponse("success")
 
