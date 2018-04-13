@@ -31,4 +31,36 @@ io.on('connection', function(socket) {
         xhttp.send(JSON.stringify(msgObject));
     });
 
+    socket.on('like', function(likeObject) {
+        // emits the msgObject to the client
+        io.emit('getLike', likeObject);
+
+        // url of the view that will process
+        var url = 'http://127.0.0.1:8000/posts/like';
+
+        // when the request finishes
+
+
+        // prepares to send
+        xhttp.open('POST', url, true);
+        // sends the data to the view
+        xhttp.send(JSON.stringify(likeObject));
+    });
+
+    socket.on('comment', function(commentObject) {
+        // emits the msgObject to the client
+        io.emit('getComment', commentObject);
+
+        // url of the view that will process
+        var url = 'http://127.0.0.1:8000/posts/comment';
+
+        // when the request finishes
+
+
+        // prepares to send
+        xhttp.open('POST', url, true);
+        // sends the data to the view
+        xhttp.send(JSON.stringify(commentObject));
+    });
+
 });

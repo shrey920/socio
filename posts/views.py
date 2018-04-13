@@ -9,6 +9,9 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
+import json
 from .models import *
 # Create your views here.
 
@@ -104,6 +107,24 @@ class LikePostView(LoginRequiredMixin, APIView):
         }
         return Response(data)
 
+@csrf_exempt
+def likePost(request):
+    if request.method == 'POST':
+        like_obj = json.loads(request.body.decode('utf-8'))
+
+        post = Post.objects.get(pk=like_obj['post_id'])
+        user = User.objects.get(username=like_obj['user'])
+
+        if user in post.likes.all():
+            post.likes.remove(user)
+        else:
+            post.likes.add(user)
+
+        return HttpResponse("success")
+
+    else:
+        return HttpResponseRedirect('/')
+
 class CommentPostView(LoginRequiredMixin, APIView):
     login_url =  '/login'
     authentication_classes = (authentication.SessionAuthentication,)
@@ -122,4 +143,41 @@ class CommentPostView(LoginRequiredMixin, APIView):
             'text':comment.text,
         }
 
+        return Response(data)
+
+@csrf_exempt
+def commentPost(request):
+    if request.method == 'POST':
+        comment_obj = json.loads(request.body.decode('utf-8'))
+
+        post = Post.objects.get(pk=comment_obj['post_id'])
+        user = User.objects.get(username=comment_obj['user'])
+        comment = Comment()
+        comment.post = post
+        comment.owner = user
+        comment.text = comment_obj['comment_text']
+
+        comment.save()
+
+        return HttpResponse("success")
+
+    else:
+        return HttpResponseRedirect('/')
+
+class GetUserView(LoginRequiredMixin, APIView):
+    login_url =  '/login'
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, format=None):
+        user = User.objects.get(username=request.GET['user'])
+        if user:
+            data={
+                'username':user.username,
+                'picture':str(user.profile.picture),
+                'firstName':user.profile.firstName,
+                'lastName':user.profile.lastName,
+            }
+        else:
+            data={}
         return Response(data)
