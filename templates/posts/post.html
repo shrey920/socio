@@ -1,0 +1,206 @@
+{% load thumbnail %}
+
+{% if context.all_posts %}
+        <ul>
+            {%  for m in context.all_posts %}
+                <li id="{{ m.id }}" >
+                <div class="post">
+                <div class="owner">
+                {% if m.group %}
+                    <div class="group">
+                    <a href="{% url 'groups:groupDetail' m.group.name %}"><img src="../{% thumbnail m.group.picture 140x140 %}" width="70" height="70">{{ m.group.name }}</a><br>
+                    </div>
+                {% endif %}
+                <a href="{% url 'profiles:profileView' m.owner %}">
+                    <div class="col-sm-4" ><img src="../{{ m.owner.profile.picture }}" width="50" height="50"></div>
+                    <div class="col-sm-8" style="margin: -1% -20%; ">
+                        <h5>{{ m.owner.profile.firstName }} {{ m.owner.profile.lastName }}</h5>
+                </a>
+                <p class="small help-block" style="color:white">{{ m.date }}</p></div>
+                {% if m.owner == request.user %}
+                    <div class="float-right">
+                    <a href="{% url 'posts:editPost' m.pk %}"><button class="btn-primary btn-sm">Edit</button> </a>
+                    <a href="{% url 'posts:deletePost' m.pk %}"><button class="btn-primary btn-danger">Delete</button> </a>
+                    </div>
+                {% endif %}
+                <br><br><br>
+                </div>
+                <br>
+
+                <div class="container post-content">
+                {% if m.image %}
+                    <div class="post-image">
+                    <img src="../{{ m.image }}  " width="400" height="400" ></div><br><br>
+                {% endif %}
+                    <p>{{ m.text }}</p>
+                </div>
+                    <br>
+                <div class="container">
+                <button class="btn-primary btn-sm like-button" type="submit">
+                    {% if request.user in m.likes.all %}Unlike
+                    {% else %}Like
+                    {% endif %}</button>
+                <span>{{ m.likes.count }}</span>
+
+                <br><br>
+                </div>
+                <div class="container post-comments">
+                <div class="comments">
+                <ul>
+                    {% for comment in m.comment_post.all %}
+                        <li>
+                        <a href="{% url 'profiles:profileView' comment.owner %}"><img src="../{{ comment.owner.profile.picture }}" width="50" height="50">{{ comment.owner.profile.firstName }} {{ comment.owner.profile.lastName }}</a>
+                        <p class="comment">{{ comment.text }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>
+                <br>
+                <div class="comment-form">
+                    <input class="comment-text " type="text" placeholder="Add a Comment">
+                    <input class="btn-sm btn-info comment-button" type="submit" value="Comment">
+                </div>
+                </div>
+                </li>
+                <br>
+
+
+            {%  endfor %}
+        </ul>
+    {% else %}
+        <h3>No Posts</h3>
+    {%  endif %}
+
+    <style>
+    .post{
+        border: 5px ridge #397cbd;
+        border-radius: 2%;
+        padding: 2% 5%;
+    }
+
+    .owner{
+        background-color: #5362a1;
+        padding: 2% 5%;
+    }
+
+    .group{
+        margin: 2% -5%;
+    }
+
+    .post-content{
+        border: 3px ridge #397cbd;
+    }
+
+    .post-image {
+        margin: 2% 14% 0 14%;
+    }
+
+    .post-comments{
+        border: 3px ridge #397cbd;
+    }
+
+    .comments li{
+        border: 1px solid #397cbd;
+        width : 105%;
+        margin-left: -2.5%;
+        padding: 2.5%;
+    }
+
+    .comment {
+        border: 1px solid #397cbd;
+        margin-top: 2%;
+    }
+
+    .comment-form ::-webkit-input-placeholder{
+        color: #737798;
+    }
+    </style>
+
+<script src="http://localhost:4000/socket.io/socket.io.js"></script>
+<script>
+    var host = 'localhost';
+    var port = '4000';
+
+    var socket = io(host + ':' + port);
+
+
+    $(document).ready(function () {
+        $('.like-button').click(function (e) {
+            e.preventDefault();
+            var post=$($(this).parents('li')[0]);
+            var post_id=post.attr('id');
+            var user = "{{ request.user }}";
+            var like = $(this).text().trim();
+            var likes = parseInt($(this).next().text().trim());
+            if(like=="Like"){
+                likes=likes+1;
+                like="Unlike";
+            }
+            else{
+                likes=likes-1;
+                like="Like";
+            }
+            likeObject={
+                "user":user,
+                "post_id":post_id,
+                "like":like,
+                "likes": likes
+
+            };
+            socket.emit('like', likeObject);
+
+        });
+        $('.comment-button').click(function (e) {
+            e.preventDefault();
+            var post=$($(this).parents('li')[0]);
+            var post_id=post.attr('id');
+            var user = "{{ request.user }}";
+            var comment_text = $(this).prev().val();
+
+
+            commentObject={
+                "user":user,
+                "post_id":post_id,
+                "comment_text":comment_text
+
+            };
+
+            socket.emit('comment', commentObject);
+            $(this).prev().val('');
+
+        });
+
+        socket.on('getLike', function(likeObject) {
+        // gets the fields of the message
+            var post_id = likeObject.post_id;
+            var post = $('#'+post_id);
+            var btn = post.find('.like-button')[0];
+            if(likeObject.user=="{{ request.user }}"){
+                $(btn).text(likeObject.like);
+            }
+            $(btn).next().text(likeObject.likes);
+        });
+
+        socket.on('getComment', function(commentObject) {
+        // gets the fields of the message
+            var post_id = commentObject.post_id;
+            $.ajax({
+                url: '{% url 'posts:getUser' %}',
+                method: "GET",
+                data: {
+                    'user': commentObject.user
+                },
+                success: function (data) {
+                    var comment_text = commentObject.comment_text;
+                    var post = $('#'+post_id);
+                    var comment_div = $(post.find('.comments')[0]);
+                    comment='<li><a href="/profiles/"'+ data.username +'><img src="../'+ data.picture +'" width="50" height="50">'+data.firstName+' '+data.lastName+'</a><p class="comment">'+comment_text+'</p></li>';
+                    comment_div.append(comment);
+
+                }, error:function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>

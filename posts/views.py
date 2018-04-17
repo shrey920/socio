@@ -72,16 +72,18 @@ class DeletePostView(LoginRequiredMixin, DeleteView):
         return handler(request, *args, **kwargs)
 
 
-class PostsView(LoginRequiredMixin, generic.ListView):
-    login_url = '/login'
-    template_name='posts/posts.html'
-    context_object_name = 'all_posts'
-
-    def get_queryset(self):
-        p=set(self.request.user.post_owner.all())
-        for friend in self.request.user.profile.friends.all():
-            p=p.union(set(friend.post_owner.all()))
-        return reversed(list(p))
+@login_required(login_url='/login')
+def postsView(request):
+    p=set(request.user.post_owner.all())
+    for friend in request.user.profile.friends.all():
+        p=p.union(set(friend.post_owner.all()))
+        context={
+            'all_posts':reversed(list(p))
+        }
+        data={
+            'context':context,
+        }
+    return render(request,'posts/posts.html',data)
 
 class LikePostView(LoginRequiredMixin, APIView):
     login_url =  '/login'
@@ -115,6 +117,9 @@ def likePost(request):
         post = Post.objects.get(pk=like_obj['post_id'])
         user = User.objects.get(username=like_obj['user'])
 
+        if user != request.user:
+            return HttpResponseRedirect('/')
+
         if user in post.likes.all():
             post.likes.remove(user)
         else:
@@ -132,7 +137,6 @@ class CommentPostView(LoginRequiredMixin, APIView):
 
     def get(self, request, pk, format=None):
         post=Post.objects.get(pk=pk)
-
         comment = Comment()
         comment.post = post
         comment.owner = request.user
@@ -152,6 +156,7 @@ def commentPost(request):
 
         post = Post.objects.get(pk=comment_obj['post_id'])
         user = User.objects.get(username=comment_obj['user'])
+
         comment = Comment()
         comment.post = post
         comment.owner = user
@@ -170,6 +175,7 @@ class GetUserView(LoginRequiredMixin, APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
+
         user = User.objects.get(username=request.GET['user'])
         if user:
             data={
