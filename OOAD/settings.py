@@ -138,7 +138,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = ''
 STATICFILES_DIRS = ( os.path.join('static'), )
-
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
 LOGIN_REDIRECT_URL = reverse_lazy("socio:home")

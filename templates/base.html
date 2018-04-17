@@ -38,7 +38,8 @@
             <li class="home"><a class="navbar-brand" href="{% url 'socio:home' %}">Socio</a></li>
           <li class="profile"><a href="{% url 'profiles:profileView' request.user %}">Profile</a></li>
           <li class="request"><a href="{% url 'requests:friendRequests' %} ">Friend Requests</a></li>
-          <li class="message"><a href="{% url 'message:messages' request.user %}">Messages</a></li>
+          <li class="message"><a href="{% url 'message:messages' %}">Messages</a></li>
+          <li class="file"><a href="{% url 'message:files'  %}">Files</a></li>
           <li class="chat"><a href="{% url 'chat:chatRooms' %}">Chat</a></li>
           <li class="groups"><a href="{% url 'groups:groupList' %}">Groups</a></li>
         </ul>

@@ -6,7 +6,12 @@ from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from wsgiref.util import FileWrapper
+from django.utils.encoding import smart_str
+import mimetypes,os
 from .models import *
+from .forms import FileForm
 # Create your views here.
 
 User= get_user_model()
@@ -38,10 +43,74 @@ class CreateMessageView(LoginRequiredMixin,CreateView):
             return redirect('socio:home')
 
 
+class FileUploadView(LoginRequiredMixin,CreateView):
+    login_url = '/login'
+    model=File
+    fields = ['title','file']
+
+    def dispatch(self, request, *args, **kwargs):
+        sender = request.user
+        receiver = User.objects.get(username=self.kwargs['username'])
+        if not receiver in set(sender.profile.friends.all()):
+            return redirect('socio:home')
+        else:
+            if request.method.lower() in self.http_method_names:
+                handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+            else:
+                handler = self.http_method_not_allowed
+            return handler(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        sender = self.request.user
+        receiver = User.objects.get(username=self.kwargs['username'])
+        form.instance.sender = sender
+        form.instance.receiver = receiver
+
+        if form.is_valid():
+            form.save()
+            file=File.objects.get(file=form.instance.file)
+            file.sha1 = file.getSha1()
+            file.save()
+            return redirect('socio:home')
+
+
 class MessagesView(LoginRequiredMixin, generic.ListView):
     template_name='message/messages.html'
     context_object_name = 'all_messages'
 
     def get_queryset(self):
-        user = User.objects.get(username=self.kwargs['username'])
+        user = User.objects.get(username=self.request.user)
         return reversed(user.message_receiver.all())
+
+class FilesView(LoginRequiredMixin, generic.ListView):
+    template_name='message/files.html'
+    context_object_name = 'all_files'
+
+    def get_queryset(self):
+        user = User.objects.get(username=self.request.user)
+        return reversed(user.file_receiver.all())
+
+def downloadFile(request,file_name):
+    file_path = 'message/uploads/'+file_name
+    file_wrapper = FileWrapper(open(file_path,'rb'))
+    file_mimetype = mimetypes.guess_type(file_path)
+    response = HttpResponse(file_wrapper, content_type=file_mimetype )
+    response['X-Sendfile'] = file_path
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name)
+    return response
+
+def checkFile(request,file_name):
+    file_path = 'message/uploads/'+file_name
+    data = open(file_path,'rb')
+    sha = sha1.sha1(data)
+    file=File.objects.get(file=file_path)
+    context = {
+        'file' : file_name
+    }
+    if sha==file.sha1:
+        context['msg'] = 'Unaltered'
+    else:
+        context['msg'] = 'Altered'
+
+    return render(request,'message/check.html',context)

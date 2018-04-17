@@ -19,6 +19,7 @@
         {% elif context.friendship == 'friends' %}
             <p>{{ context.user }} is your friend.</p>
             <a href="{% url 'message:createMessage' context.user %}"><button class="btn-primary">Message</button> </a>
+            <a href="{% url 'message:uploadFile' context.user %}"><button class="btn-primary">Send File</button> </a>
             <a href="{% url 'profiles:removeFriend' context.user.id %}"><button class="btn-primary">Unfriend</button> </a>
         {% elif context.friendship == 'requested' %}
             <p>Friend request sent</p>

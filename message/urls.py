@@ -5,6 +5,9 @@ app_name = 'message'
 
 urlpatterns = [
     path('message/create/<username>',views.CreateMessageView.as_view(), name="createMessage"),
-    path('message/<username>',views.MessagesView.as_view(), name="messages"),
-
+    path('message',views.MessagesView.as_view(), name="messages"),
+    path('files', views.FilesView.as_view(), name="files"),
+    path('file/<username>',views.FileUploadView.as_view(), name="uploadFile"),
+    path('download/<file_name>', views.downloadFile, name="download"),
+    path('check/<file_name>', views.checkFile, name="check"),
 ]
