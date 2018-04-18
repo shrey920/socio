@@ -92,13 +92,23 @@ class FilesView(LoginRequiredMixin, generic.ListView):
 
 def downloadFile(request,file_name):
     file_path = 'message/uploads/'+file_name
-    file_wrapper = FileWrapper(open(file_path,'rb'))
-    file_mimetype = mimetypes.guess_type(file_path)
-    response = HttpResponse(file_wrapper, content_type=file_mimetype )
-    response['X-Sendfile'] = file_path
-    response['Content-Length'] = os.stat(file_path).st_size
-    response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name)
-    return response
+    data = open(file_path, 'rb')
+    sha = sha1.sha1(data)
+    file = File.objects.get(file=file_path)
+    context = {'file': file_name}
+    if sha == file.sha1:
+        file_wrapper = FileWrapper(open(file_path,'rb'))
+        file_mimetype = mimetypes.guess_type(file_path)
+        response = HttpResponse(file_wrapper, content_type=file_mimetype )
+        response['X-Sendfile'] = file_path
+        response['Content-Length'] = os.stat(file_path).st_size
+        response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name)
+        return response
+    else:
+        context['msg'] = 'was Altered'
+
+    return render(request, 'message/check.html', context)
+
 
 def checkFile(request,file_name):
     file_path = 'message/uploads/'+file_name
@@ -109,8 +119,8 @@ def checkFile(request,file_name):
         'file' : file_name
     }
     if sha==file.sha1:
-        context['msg'] = 'Unaltered'
+        context['msg'] = 'was Unaltered.'
     else:
-        context['msg'] = 'Altered'
+        context['msg'] = 'was Altered'
 
     return render(request,'message/check.html',context)

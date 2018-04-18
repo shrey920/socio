@@ -75,6 +75,7 @@ class DeletePostView(LoginRequiredMixin, DeleteView):
 @login_required(login_url='/login')
 def postsView(request):
     p=set(request.user.post_owner.all())
+    data={}
     for friend in request.user.profile.friends.all():
         p=p.union(set(friend.post_owner.all()))
         context={
@@ -116,9 +117,6 @@ def likePost(request):
 
         post = Post.objects.get(pk=like_obj['post_id'])
         user = User.objects.get(username=like_obj['user'])
-
-        if user != request.user:
-            return HttpResponseRedirect('/')
 
         if user in post.likes.all():
             post.likes.remove(user)
