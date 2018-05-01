@@ -35,7 +35,7 @@
        </div>
        <div class="collapse navbar-collapse show-on-large" style="background-color: midnightblue " id="myNavbar">
         <ul class="nav navbar-nav">
-            <li class="home"><a class="navbar-brand" href="{% url 'socio:home' %}">Socio</a></li>
+            <li class="home"><a class="navbar-brand" href="{% url 'home' %}">Socio</a></li>
           <li class="profile"><a href="{% url 'profiles:profileView' request.user %}">Profile</a></li>
           <li class="request"><a href="{% url 'requests:friendRequests' %} ">Friend Requests</a></li>
           <li class="message"><a href="{% url 'message:messages' %}">Messages</a></li>
