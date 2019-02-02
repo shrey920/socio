@@ -30,7 +30,7 @@ class LoginView(bracesviews.AnonymousRequiredMixin, authviews.LoginView):
 
 
 class LogoutView(authviews.LogoutView):
-    url = reverse_lazy('socio:home')
+    url = reverse_lazy('home')
 
 
 class SignUpView(bracesviews.AnonymousRequiredMixin,
