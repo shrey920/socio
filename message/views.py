@@ -42,6 +42,20 @@ class CreateMessageView(LoginRequiredMixin,CreateView):
             form.save()
             return redirect('home')
 
+@login_required(login_url = "/login")
+def SOS(request):
+    sos = SOSMessage()
+    sos.sender = request.user
+    sos.save()
+    return redirect('home')
+
+@login_required(login_url='/login')
+def location(request,pk):
+    member = User.objects.get(pk=pk)
+    context = {}
+    context['member'] = member
+    return render(request,"message/location.html",context)
+
 
 class FileUploadView(LoginRequiredMixin,CreateView):
     login_url = '/login'
@@ -78,9 +92,23 @@ class MessagesView(LoginRequiredMixin, generic.ListView):
     template_name='message/messages.html'
     context_object_name = 'all_messages'
 
+
     def get_queryset(self):
         user = User.objects.get(username=self.request.user)
         return reversed(user.message_receiver.all())
+
+
+class SOSView(LoginRequiredMixin, generic.ListView):
+    template_name = 'message/sos.html'
+    context_object_name = 'all_messages'
+
+    def get_queryset(self):
+        user = User.objects.get(username=self.request.user)
+        sos=[]
+        for friend in user.profile.friends.all():
+            for m in friend.sos_sender.all():
+                sos.append(m)
+        return sos
 
 class FilesView(LoginRequiredMixin, generic.ListView):
     template_name='message/files.html'

@@ -12,6 +12,10 @@ class Message(models.Model):
     message = models.CharField(max_length=500)
     date = models.DateTimeField(auto_now=True, db_index=True)
 
+class SOSMessage(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE,related_name="sos_sender")
+    date = models.DateTimeField(auto_now=True, db_index=True)
+
 
 class File(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE,related_name="file_sender")

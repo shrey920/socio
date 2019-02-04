@@ -1,12 +1,10 @@
-#!/home/shreyas/PycharmProjects/OOAD/venv/bin/python
-# EASY-INSTALL-ENTRY-SCRIPT: 'PyJWT==1.6.1','console_scripts','pyjwt'
-__requires__ = 'PyJWT==1.6.1'
+#!/home/shreyas/PycharmProjects/socio/venv/bin/python3
+# -*- coding: utf-8 -*-
 import re
 import sys
-from pkg_resources import load_entry_point
+
+from jwt.__main__ import main
 
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    sys.exit(
-        load_entry_point('PyJWT==1.6.1', 'console_scripts', 'pyjwt')()
-    )
+    sys.exit(main())

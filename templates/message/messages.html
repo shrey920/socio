@@ -21,7 +21,9 @@ Messages
                 </a>
                     <p class="small">{{ m.date }}</p>
                 <div class="container mdi-border">
-                    <p>{{ m.message }}</p>
+                    <p>
+                        {{ m.message }}
+                    </p>
                 </div>
                 <a href="{% url 'message:createMessage' m.sender %}"><button class="btn-primary">Reply</button> </a>
                 </li>
