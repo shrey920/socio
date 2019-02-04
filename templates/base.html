@@ -42,6 +42,8 @@
           <li class="file"><a href="{% url 'message:files'  %}">Files</a></li>
           <li class="chat"><a href="{% url 'chat:chatRooms' %}">Chat</a></li>
           <li class="groups"><a href="{% url 'groups:groupList' %}">Groups</a></li>
+            {% block extra-navbar %}
+            {% endblock %}
         </ul>
 
 

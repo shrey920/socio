@@ -25,7 +25,7 @@ class CreateMessageView(LoginRequiredMixin,CreateView):
         sender = request.user
         receiver = User.objects.get(username=self.kwargs['username'])
         if not receiver in set(sender.profile.friends.all()):
-            return redirect('socio:home')
+            return redirect('home')
         else:
             if request.method.lower() in self.http_method_names:
                 handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
@@ -40,7 +40,7 @@ class CreateMessageView(LoginRequiredMixin,CreateView):
         form.instance.receiver = receiver
         if form.is_valid():
             form.save()
-            return redirect('socio:home')
+            return redirect('home')
 
 
 class FileUploadView(LoginRequiredMixin,CreateView):
@@ -52,7 +52,7 @@ class FileUploadView(LoginRequiredMixin,CreateView):
         sender = request.user
         receiver = User.objects.get(username=self.kwargs['username'])
         if not receiver in set(sender.profile.friends.all()):
-            return redirect('socio:home')
+            return redirect('home')
         else:
             if request.method.lower() in self.http_method_names:
                 handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
@@ -71,7 +71,7 @@ class FileUploadView(LoginRequiredMixin,CreateView):
             file=File.objects.get(file=form.instance.file)
             file.sha1 = file.getSha1()
             file.save()
-            return redirect('socio:home')
+            return redirect('home')
 
 
 class MessagesView(LoginRequiredMixin, generic.ListView):

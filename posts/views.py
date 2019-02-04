@@ -34,7 +34,7 @@ class CreatePostView(LoginRequiredMixin,CreateView):
         form.instance.owner = self.request.user
         if form.is_valid():
             form.save()
-            return redirect('socio:home')
+            return redirect('home')
 
 class EditPostView(LoginRequiredMixin,UpdateView):
     login_url = '/login'
@@ -54,7 +54,7 @@ class EditPostView(LoginRequiredMixin,UpdateView):
     def form_valid(self, form):
         if form.is_valid():
             form.save()
-            return redirect('socio:home')
+            return redirect('home')
 
 class DeletePostView(LoginRequiredMixin, DeleteView):
     login_url = '/login'
@@ -78,12 +78,13 @@ def postsView(request):
     data={}
     for friend in request.user.profile.friends.all():
         p=p.union(set(friend.post_owner.all()))
-        context={
-            'all_posts':reversed(list(p))
-        }
-        data={
-            'context':context,
-        }
+
+    context={
+        'all_posts':reversed(list(p))
+    }
+    data={
+        'context':context,
+    }
     return render(request,'posts/posts.html',data)
 
 class LikePostView(LoginRequiredMixin, APIView):

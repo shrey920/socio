@@ -25,6 +25,7 @@ Chats
                                 {{ m.profile.firstName }} {{ m.profile.lastName }}
                                 {% endif %}
                             {% endfor %}
+
                         {% endif %}
                         </a></div>
                     <div id="messages-list" class="panel-body" style="height:520px;overflow-y:scroll;width:100%;">
@@ -55,8 +56,9 @@ Chats
             <form>
                 <div class="form-inline">
                     <label class="hide" id="user" >{{ request.user }}</label>
-                    <input id="message" type="text" style="width: 80%" class="form-control" placeholder="Enter your message here" required maxlength="140" />
+                    <input id="message" type="text" style="width: 60%" class="form-control " placeholder="Enter your message here" required maxlength="140" />
                     <button type="submit" class="btn btn-info btn-sm">Send</button>
+                    <button class="btn location center">Share Location</button>
                 </div>
             </form>
         </div>
@@ -103,6 +105,28 @@ Chats
         return false;
     });
 
+    $(".location").click(function () {
+        console.log("hi");
+       var msg = "{{ request.user }} shared his location";
+       var url = '{% url "chat:location" room.pk request.user.pk %}' ;
+        var room = {{ room.id }};
+        // if the message and the name aren't empty or aren't spaces,
+        if(user !== "") {
+            // creates the message object
+            msgObject = {
+                'room': room,
+                'user': user,
+                'message': msg,
+                'url':url,
+                'date': new Date(),
+            };
+
+            // emits the msgObject to the server
+            socket.emit('location', msgObject);
+        }
+        return false;
+    });
+
     // receives the message object from the server
     socket.on('getMessage', function(msgObject) {
         // gets the fields of the message
@@ -118,6 +142,28 @@ Chats
             }
             else {
                 new_message = '<div class="text-right form-control"><p class="">' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p></div>'
+            }
+            $('#messages-list').append(new_message);
+        }
+        // updates the scroll
+        updateScroll();
+    });
+
+    socket.on('getLocation', function(msgObject) {
+        // gets the fields of the message
+        var name = msgObject.user;
+        var msg = msgObject.message;
+        var url = msgObject.url;
+        var date = new Date(msgObject.date);
+        var room = msgObject.room;
+        time = dateFormat(date, " h:MM tt");
+        if(room == {{ room.id }}) {
+            if (name != user) {
+                new_message = '<a href='+url+'><div class="form-control">' + '<p><span >' + name + ':</span>&emsp;' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p>' + '</div></a>'
+                // appends the message to the screen
+            }
+            else {
+                new_message = '<a href='+url+'><div class="text-right form-control"><p class="">' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p></div></a>'
             }
             $('#messages-list').append(new_message);
         }

@@ -12,19 +12,20 @@
                     <a href="{% url 'groups:groupDetail' m.group.name %}"><img src="../{% thumbnail m.group.picture 140x140 %}" width="70" height="70">{{ m.group.name }}</a><br>
                     </div>
                 {% endif %}
-                <a href="{% url 'profiles:profileView' m.owner %}">
-                    <div class="col-sm-4" ><img src="../{{ m.owner.profile.picture }}" width="50" height="50"></div>
-                    <div class="col-sm-8" style="margin: -1% -20%; ">
-                        <h5>{{ m.owner.profile.firstName }} {{ m.owner.profile.lastName }}</h5>
-                </a>
-                <p class="small help-block" style="color:white">{{ m.date }}</p></div>
-                {% if m.owner == request.user %}
-                    <div class="float-right">
-                    <a href="{% url 'posts:editPost' m.pk %}"><button class="btn-primary btn-sm">Edit</button> </a>
-                    <a href="{% url 'posts:deletePost' m.pk %}"><button class="btn-primary btn-danger">Delete</button> </a>
-                    </div>
-                {% endif %}
-                <br><br><br>
+                <div class="col-sm-4" ><img src="../{{ m.owner.profile.picture }}" width="50" height="50"></div>
+                <div class="col-sm-8" style="margin: -1% -20%;">
+                    <h5><a href="{% url 'profiles:profileView' m.owner %}">
+                        {{ m.owner.profile.firstName }} {{ m.owner.profile.lastName }}
+                    </a></h5>
+                    <p class="small help-block" style="color:white">{{ m.date }}</p></div>
+                    {% if m.owner == request.user %}
+                        <div class="col-sm-3" >
+                        <a href="{% url 'posts:editPost' m.pk %}"><button class="btn-primary btn-sm">Edit</button> </a>
+                        <a href="{% url 'posts:deletePost' m.pk %}"><button class="btn-primary btn-danger">Delete</button> </a>
+                        </div>
+
+                    {% endif %}
+                    <br><br><br>
                 </div>
                 <br>
 

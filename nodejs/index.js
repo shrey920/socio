@@ -31,6 +31,22 @@ io.on('connection', function(socket) {
         xhttp.send(JSON.stringify(msgObject));
     });
 
+    socket.on('location', function(msgObject) {
+        // emits the msgObject to the client
+        io.emit('getLocation', msgObject);
+
+        // url of the view that will process
+        var url = 'http://127.0.0.1:8000//';
+
+        // when the request finishes
+
+
+        // prepares to send
+        xhttp.open('POST', url, true);
+        // sends the data to the view
+        xhttp.send(JSON.stringify(msgObject));
+    });
+
     socket.on('like', function(likeObject) {
         // emits the msgObject to the client
         io.emit('getLike', likeObject);

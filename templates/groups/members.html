@@ -17,15 +17,15 @@
                     Add
                 {% endif %}
             </button>
-            {% if friend in group.members.all %}
-            <button class="btn-sm btn-primary float-right add-admin" href="{% url 'groups:addAdmin' group.pk %}" friend="{{ friend }}">
+
+            <button class="btn-sm btn-primary float-right add-admin {% if friend not in group.members.all %} hide {% endif %}" href="{% url 'groups:addAdmin' group.pk %}" friend="{{ friend }}">
                 {% if friend in group.admin.all %}
                     Remove Admin
                 {% else %}
                     Make Admin
                 {% endif %}
             </button>
-            {% endif %}
+{#            {% endif %}#}
             </li>
         {%  endfor %}
     </ul>
@@ -45,10 +45,12 @@
                     },
                     success: function (data) {
                         if(data.status == 'added'){
-                            button.next().removeClass('hide');
+                            console.log(button.next());
+                            button.next().removeClass("hide");
                             button.text('Remove');
                         }
                         else{
+                            button.next().text("Make Admin");
                             button.next().addClass('hide');
                             button.text('Add');
                         }

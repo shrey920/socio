@@ -47,7 +47,7 @@ class UpdateGroupView(LoginRequiredMixin, generic.UpdateView):
         user=self.request.user
         group=Group.objects.get(pk=self.kwargs['pk'])
         if user not in group.admin.all():
-            return redirect('socio:home')
+            return redirect('home')
         else:
             if request.method.lower() in self.http_method_names:
                 handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
@@ -83,7 +83,7 @@ class GroupView(LoginRequiredMixin, generic.DetailView):
 def addMember(request,pk):
     group = Group.objects.get(pk=pk)
     if request.user not in group.admin.all():
-        return redirect('socio:home')
+        return redirect('home')
     return render(request,'groups/members.html',{'group':group})
 
 class AddMemberView(LoginRequiredMixin, APIView):
@@ -98,6 +98,7 @@ class AddMemberView(LoginRequiredMixin, APIView):
         if friend in group.members.all():
             group.members.remove(friend)
             group.chatroom.members.remove(friend)
+            group.admin.remove(friend)
             status='removed'
         else:
             group.members.add(friend)
@@ -149,7 +150,7 @@ class DeleteGroupView(LoginRequiredMixin,generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         group = Group.objects.get(pk=kwargs['pk'])
         if self.request.user not in group.admin.all():
-            return redirect('socio:home')
+            return redirect('home')
 
         self.object = self.get_object()
         self.object.delete()
@@ -159,7 +160,7 @@ class DeleteGroupView(LoginRequiredMixin,generic.DeleteView):
 def leaveGroup(request,pk):
     group=Group.objects.get(pk=pk)
     if request.user not in group.members.all():
-        return redirect('socio:home')
+        return redirect('home')
     group.members.remove(request.user)
     group.chatroom.members.remove(request.user)
     if group.members.count() == 0:
@@ -169,7 +170,7 @@ def leaveGroup(request,pk):
         if group.admin.count() == 0:
             group.admin.add(group.members.all()[0])
 
-    return redirect('socio:home')
+    return redirect('home')
 
 class CreatePost(LoginRequiredMixin,CreateView):
     login_url = '/login'
@@ -178,7 +179,7 @@ class CreatePost(LoginRequiredMixin,CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user not in Group.objects.get(pk=self.kwargs['pk']).members.all():
-            return redirect('socio:home')
+            return redirect('home')
 
         if request.method.lower() in self.http_method_names:
             handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
@@ -191,4 +192,4 @@ class CreatePost(LoginRequiredMixin,CreateView):
         form.instance.group = Group.objects.get(pk=self.kwargs['pk'])
         if form.is_valid():
             form.save()
-            return redirect('socio:home')
+            return redirect('home')

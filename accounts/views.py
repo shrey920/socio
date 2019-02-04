@@ -26,7 +26,7 @@ class LoginView(bracesviews.AnonymousRequiredMixin, authviews.LoginView):
             expiry = getattr(settings, "KEEP_LOGGED_DURATION", ONE_MONTH)
             self.request.session.set_expiry(expiry)
 
-        return redirect('profiles:profileView',self.request.user)
+        return redirect('home')
 
 
 class LogoutView(authviews.LogoutView):
@@ -39,7 +39,7 @@ class SignUpView(bracesviews.AnonymousRequiredMixin,
     form_class = forms.SignupForm
     model = User
     template_name = 'accounts/signup.html'
-    success_url = reverse_lazy('socio:home')
+    success_url = reverse_lazy('home')
     form_valid_message = "You're signed up!"
 
     def form_valid(self, form):
@@ -54,7 +54,7 @@ class SignUpView(bracesviews.AnonymousRequiredMixin,
 class PasswordChangeView(authviews.PasswordChangeView):
     form_class = forms.PasswordChangeForm
     template_name = 'accounts/password-change.html'
-    success_url = reverse_lazy('socio:home')
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         form.save()

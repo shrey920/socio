@@ -69,7 +69,7 @@ class CreateProfileView(LoginRequiredMixin, generic.CreateView):
                 logout(request.user)
             except:
                 return redirect('accounts:login')
-            return redirect('socio:home')
+            return redirect('home')
         else:
             if request.method.lower() in self.http_method_names:
                 handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
@@ -97,7 +97,7 @@ class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
                 logout(request.user)
             except:
                 return redirect('accounts:login')
-            return redirect('socio:home')
+            return redirect('home')
         else:
             if request.method.lower() in self.http_method_names:
                 handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
@@ -125,7 +125,7 @@ def friendList(request):
 def removeFriend(request,pk):
     friend=User.objects.get(pk=pk)
     if friend not in request.user.profile.friends.all():
-        return redirect('socio:home')
+        return redirect('home')
     for room in request.user.chatroom_set.all():
         if room.members.count() == 2:
             if (request.user in room.members.all()) and (friend in room.members.all()):
