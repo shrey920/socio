@@ -11,8 +11,11 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-import json
+import json,mimetypes,os
 from .models import *
+from wsgiref.util import FileWrapper
+from django.utils.encoding import smart_str
+
 # Create your views here.
 
 User= get_user_model()
@@ -20,7 +23,7 @@ User= get_user_model()
 class CreatePostView(LoginRequiredMixin,CreateView):
     login_url = '/login'
     model=Post
-    fields = ['title','text','image']
+    fields = ['title','text','image','file']
 
     def dispatch(self, request, *args, **kwargs):
         sender = request.user
@@ -34,12 +37,15 @@ class CreatePostView(LoginRequiredMixin,CreateView):
         form.instance.owner = self.request.user
         if form.is_valid():
             form.save()
+            post = Post.objects.get(file=form.instance.file)
+            post.sha1 = post.getSha1()
+            post.save()
             return redirect('home')
 
 class EditPostView(LoginRequiredMixin,UpdateView):
     login_url = '/login'
     model=Post
-    fields = ['title','text','image']
+    fields = ['title','text','image','file']
 
     def dispatch(self, request, *args, **kwargs):
         pk=kwargs['pk']
@@ -54,7 +60,12 @@ class EditPostView(LoginRequiredMixin,UpdateView):
     def form_valid(self, form):
         if form.is_valid():
             form.save()
+            post = Post.objects.get(file=form.instance.file)
+            post.sha1 = post.getSha1()
+            post.save()
             return redirect('home')
+
+
 
 class DeletePostView(LoginRequiredMixin, DeleteView):
     login_url = '/login'
@@ -70,6 +81,26 @@ class DeletePostView(LoginRequiredMixin, DeleteView):
         else:
             handler = self.http_method_not_allowed
         return handler(request, *args, **kwargs)
+
+
+def downloadFile(request,file_name):
+    file_path = 'posts/uploads/'+file_name
+    data = open(file_path, 'rb')
+    sha = sha1.sha1(data)
+    post = Post.objects.get(file=file_path)
+    context = {'file': file_name}
+    if sha == post.sha1:
+        file_wrapper = FileWrapper(open(file_path,'rb'))
+        file_mimetype = mimetypes.guess_type(file_path)
+        response = HttpResponse(file_wrapper, content_type=file_mimetype )
+        response['X-Sendfile'] = file_path
+        response['Content-Length'] = os.stat(file_path).st_size
+        response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name)
+        return response
+    else:
+        context['msg'] = 'was Altered'
+
+    return render(request, 'message/check.html', context)
 
 
 @login_required(login_url='/login')

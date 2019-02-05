@@ -175,7 +175,7 @@ def leaveGroup(request,pk):
 class CreatePost(LoginRequiredMixin,CreateView):
     login_url = '/login'
     model=Post
-    fields = ['title','text','image']
+    fields = ['title','text','image','file']
 
     def dispatch(self, request, *args, **kwargs):
         if request.user not in Group.objects.get(pk=self.kwargs['pk']).members.all():

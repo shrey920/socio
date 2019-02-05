@@ -30,9 +30,15 @@
                 <br>
 
                 <div class="container post-content">
+                    <h4>{{ m.title }}</h4>
                 {% if m.image %}
                     <div class="post-image">
                     <img src="../{{ m.image }}  " width="400" height="400" ></div><br><br>
+                {% endif %}
+                {% if m.file %}
+                    <div class="container mdi-border">
+                    <a href="{% url 'posts:downloadFile' m.filepath %}"><p>{{ m.title }}</p></a>
+                    </div>
                 {% endif %}
                     <p>{{ m.text }}</p>
                 </div>
