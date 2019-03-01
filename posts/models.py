@@ -21,9 +21,12 @@ class Post(models.Model):
         return f[14:]
 
     def getSha1(self):
-        data = open(str(self.file), 'rb')
-        sha = sha1.sha1(data)
-        return sha
+        if self.file:
+            data = open(str(self.file), 'rb')
+            sha = sha1.sha1(data)
+            return sha
+        else:
+            return None
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete= models.CASCADE, related_name="comment_post")

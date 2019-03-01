@@ -37,9 +37,10 @@ class CreatePostView(LoginRequiredMixin,CreateView):
         form.instance.owner = self.request.user
         if form.is_valid():
             form.save()
-            post = Post.objects.get(file=form.instance.file)
-            post.sha1 = post.getSha1()
-            post.save()
+            if form.instance.file:
+                post = Post.objects.get(file=form.instance.file)
+                post.sha1 = post.getSha1()
+                post.save()
             return redirect('home')
 
 class EditPostView(LoginRequiredMixin,UpdateView):
@@ -105,18 +106,27 @@ def downloadFile(request,file_name):
 
 @login_required(login_url='/login')
 def postsView(request):
-    p=set(request.user.post_owner.all())
-    data={}
-    for friend in request.user.profile.friends.all():
-        p=p.union(set(friend.post_owner.all()))
-
-    context={
-        'all_posts':reversed(list(p))
-    }
-    data={
-        'context':context,
+    try:
+        p=set(request.user.post_owner.all())
+        data={}
+        for friend in request.user.profile.friends.all():
+            p=p.union(set(friend.post_owner.all()))
+        context={
+            'all_posts':reversed(list(p)),
+            'user':request.user,
+            'friends':request.user.profile.friends.count(),
+            'groups':request.user.group_member.all(),
+        }
+    except:
+        context = {
+            'user': request.user,
+        }
+    data = {
+        'context': context,
     }
     return render(request,'posts/posts.html',data)
+
+
 
 class LikePostView(LoginRequiredMixin, APIView):
     login_url =  '/login'

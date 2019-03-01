@@ -5,30 +5,47 @@
     <div class="container">
         <a href="{% url 'groups:groupDetail' group.name %}"><button class="btn btn-info">Group Page</button> </a>
     <h2>Here are your Friends</h2>
-    <ul>
-        {%  for friend in request.user.profile.friends.all %}
-            <li><a href="{% url 'profiles:profileView' friend %}"><img src="/../{% thumbnail friend.profile.picture 140x140 %}" width="100" height="100">
-                {{ friend.profile.firstName }} {{ friend.profile.lastName }}
-            </a>
-            <button class="btn-sm btn-primary float-right add-member" href="{% url 'groups:addMember' group.pk %}" friend="{{ friend }}">
-                {% if friend in group.members.all %}
-                    Remove
-                {% else %}
-                    Add
-                {% endif %}
-            </button>
+    <section class="companies-info">
+			<div class="container">
+				<div class="company-title">
+					<h3>All Friends</h3>
+				</div><!--company-title end-->
+				<div class="companies-list">
+					<div class="row">
+                    {%  for friend in request.user.profile.friends.all %}
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="/../{{ friend.profile.picture }}" width="100px" height="100px" alt="">
+                                    <h3>{{ friend.profile.firstName }} {{ friend.profile.lastName }}</h3>
+									<h4>{{ friend.profile.bio }}</h4>
+                                    <button class="btn-sm btn-primary add-member follow" href="{% url 'groups:addMember' group.pk %}" friend="{{ friend }}">
+                                        {% if friend in group.members.all %}
+                                            Remove
+                                        {% else %}
+                                            Add
+                                        {% endif %}
+                                    </button>
 
-            <button class="btn-sm btn-primary float-right add-admin {% if friend not in group.members.all %} hide {% endif %}" href="{% url 'groups:addAdmin' group.pk %}" friend="{{ friend }}">
-                {% if friend in group.admin.all %}
-                    Remove Admin
-                {% else %}
-                    Make Admin
-                {% endif %}
-            </button>
-{#            {% endif %}#}
-            </li>
-        {%  endfor %}
-    </ul>
+                                    <button class="btn-sm btn-primary add-admin message-us {% if friend not in group.members.all %} hide {% endif %}" href="{% url 'groups:addAdmin' group.pk %}" friend="{{ friend }}">
+                                        {% if friend in group.admin.all %}
+                                            Remove Admin
+                                        {% else %}
+                                            Make Admin
+                                        {% endif %}
+                                    </button>
+								</div>
+                                <a href="{% url 'profiles:profileView' friend.profile.user %}" title="" class="view-more-pro">View Profile</a>
+							</div><!--company_profile_info end-->
+						</div>
+                    {% endfor %}
+                    </div>
+				</div><!--companies-list end-->
+				<div class="process-comm">
+					<a href="#" title=""><img src="images/process-icon.png" alt=""></a>
+				</div>
+			</div>
+		</section>
     </div>
     <script>
         $(document).ready(function () {

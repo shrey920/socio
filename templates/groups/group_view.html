@@ -6,51 +6,90 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container ">
-        <img src="../{% thumbnail context.group.picture 140x140 %}" width="200" height="200"><br>
-        <h1>{{ context.group.name }}</h1>
-        <p>{{ context.group.info }}</p>
 
-        {% if context.admin %}
-            <a href="{%  url 'groups:updateGroup' context.group.pk %}"><button class="btn-primary btn-sm ">Edit Group</button></a>
-            <a href="{% url 'groups:deleteGroup' context.group.pk %}"><button class="btn-primary btn-sm ">Delete Group</button></a><br>
-            <a href="{% url 'groups:members' context.group.pk %}"><button class="btn-info">Add/Remove Members</button></a>
-        {% endif %}
 
-        {% if context.member %}
-            <a href="{% url 'groups:leaveGroup' context.group.pk %}" class="float-right"><button class="btn-primary">Leave Group</button></a><br>
-        {% endif %}
+<main>
+    <div class="main-section">
+        <div class="container">
+            <div class="main-section-data">
+                <div class="row">
+                    <div class="col-lg-3" style="margin-top: 10%;">
+                        <div class="main-left-sidebar">
+                            <div class="user_profile">
+                                <div class="user-pro-img">
+                                    <img src="../{% thumbnail context.group.picture 140x140 %}" alt="">
+                                </div><!--user-pro-img end-->
 
-        <ul><h3>All Members</h3>
-        {%  for member in context.group.members.all %}
-            {% if member != request.user %}
-                <li><a href="{% url 'profiles:profileView' member %}"><img src="../{% thumbnail member.profile.picture 140x140 %}" width="50" height="50">
-                {{ member.profile.firstName }} {{ member.profile.lastName }}
-            </a></li>
-            {% endif %}
+                                <div class="user_pro_status">
+                                {% if context.admin %}
+                                    <ul class="flw-hr">
+                                        <li><a href="{%  url 'groups:updateGroup' context.group.pk %}" title="" class="flww"> Edit Group</a></li>
+                                        <li><a href="{% url 'groups:deleteGroup' context.group.pk %}" title="" class="hre">Delete Group</a></li>
+                                    </ul>
+                                {% endif %}
+                                    <ul class="flw-status">
+                                        <li>
+                                            <span><a href="{% url 'groups:members' context.group.pk %}" title="" class="">Members</a></span>
+                                            <b>{{ context.members }}</b>
+                                        </li>
+                                    </ul>
 
-        {%  endfor %}
-        </ul>
+                                </div><!--user_pro_status end-->
 
-        {% if context.member %}
-            <a href="{% url 'groups:createPost' context.group.pk %}"><button class="btn-primary">Create a Post</button></a>
-        {% endif %}
+                            </div><!--user_profile end-->
+                        </div><!--main-left-sidebar end-->
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="main-ws-sec">
+                            <div class="user-tab-sec post-topbar">
+                                <h3>{{ context.group.name }}</h3>
+                                <div class="star-descp user-picy">
+                                    <span>{{ context.group.info }}</span>
+                                </div><!--star-descp end-->
+                                <div class="post-st">
+                                    <ul>
+                                        <li><a class="" href="{% url 'groups:createPost' context.group.pk %}" title="">Create a Post</a></li>
+                                    </ul>
+                                </div>
+                            </div><!--user-tab-sec end-->
+                            <div class="product-feed-tab current" id="feed-dd">
+                                <div class="posts-section">
+                                    {% include "posts/post.html" %}
+                                </div><!--posts-section end-->
+                            </div><!--product-feed-tab end-->
+                        </div><!--main-ws-sec end-->
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="right-sidebar">
+                            <div class="widget widget-jobs">
+                                <div class="sd-title">
+                                    <h3>Members</h3>
+                                </div>
+                                <div class="jobs-list">
+                                    <ul>
+                                        {% for member in context.group.members.all %}
+                                            <li>
+                                            <div class="usy-dt">
+                                                <img src="../{{ member.profile.picture }}" width="40" height="40">
+                                                <div class="usy-name">
+                                                <p><a href="{% url 'profiles:profileView' member %}">
+                                                    {{ member.profile.firstName }} {{ member.profile.lastName }}
+                                                </a></p>
+                                                </div>
+                                            </div>
+                                            </li></br>
+                                        {% endfor %}
+                                    </ul>
+                                </div><!--jobs-list end-->
+                            </div><!--widget-jobs end-->
 
-        <div>
-        <h3>{{ context.group.name }}'s Posts</h3>
-            {% include "posts/post.html" %}
+                        </div><!--right-sidebar end-->
+                    </div>
+                </div>
+            </div><!-- main-section-data end-->
         </div>
-
-
     </div>
+</main>
 
-
-<script>
-$('.groups').addClass('active');
-</script>
-
-{% endblock %}
-
-{% block extra-head %}
 
 {% endblock %}

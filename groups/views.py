@@ -77,7 +77,8 @@ class GroupView(LoginRequiredMixin, generic.DetailView):
             admin = True
         if self.request.user in group.members.all():
             member = True
-        return {'group': group,'admin': admin, 'member': member, 'all_posts': all_posts }
+        members=group.members.count()
+        return {'group': group,'admin': admin, 'member': member, 'all_posts': all_posts,'members':members }
 
 @login_required(login_url='/login')
 def addMember(request,pk):

@@ -8,61 +8,49 @@ Chats
 
 
 {% block body %}
-<body>
 <script src="http://localhost:4000/socket.io/socket.io.js"></script>
+.
+<div class="container col-sm-offset-2 col-sm-8">
+    <div class="con-title mg-3">
+        <div class="chat-user-info">
+            {% if room.group %}
+                <img src="../{% thumbnail room.group.picture 140x140 %}" width="100" height="100">
+                <h3>{{ room.group.name }} <span class="status-info"></span></h3>
+            {% else %}
+                {% for m in room.members.all %}
+                {% if request.user != m %}
+                    <img src="../{% thumbnail m.profile.picture 140x140 %}" width="50" height="50">
+                    <h3>{{ m.profile.firstName }} {{ m.profile.lastName }}</h3>
+                {% endif %}
+                {% endfor %}
+            {% endif %}
+            <div class="location" ><img class="float-right" src="{% static 'images/location.png' %}" width="30px" height="30px"></div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading" style="font-size:24px; text-shadow: 1px 1px 1px #000;">
-                        {% if room.group %}
-                            <a href="{% url 'groups:groupDetail' room.group.name %}"><img src="../{% thumbnail room.group.picture 140x140 %}" width="100" height="100">{{ room.group.name }}<br>
-                        {% else %}
-                            {% for m in room.members.all %}
-                            {% if request.user != m %}
-                            <a href="{% url 'profiles:profileView' m %}"><img src="../{{ m.profile.picture }}" width="50" height="50">
-                                {{ m.profile.firstName }} {{ m.profile.lastName }}
-                                {% endif %}
-                            {% endfor %}
-
-                        {% endif %}
-                        </a></div>
-                    <div id="messages-list" class="panel-body" style="height:520px;overflow-y:scroll;width:100%;">
-                        {% for message in messages %}
-                            {% if message.user == request.user %}
-                            <div class="text-right form-control">
-                                <p class=""> {{ message.text }}
-                                <sub style="font-size: xx-small">{{ message.date.time }}</sub></p>
-                            </div>
-                            {% else %}
-                            <div class="form-control">
-                                <p><span >
-                                    {{ message.user }}:
-                                </span>&emsp;
-                                {{ message.text }}
-                                    <sub style="font-size: xx-small">{{ message.date.time }}</sub></p>
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div id="message-list"  data-mcs-theme="dark" style="height:500px;overflow-y:scroll;width:100%;">
+        {% for message in messages %}
+            {% if message.user == request.user %}
+            <div class="text-right chat-msg">
+                <p>{{ message.text }}</p>
+                <span>{{ message.date.time }}</span>
             </div>
-        </div>
-    </div>
+            {% else %}
+            <div class="chat-msg st2">
 
-    <div class="navbar navbar-fixed-bottom">
-        <div class="container">
-            <form>
-                <div class="form-inline">
-                    <label class="hide" id="user" >{{ request.user }}</label>
-                    <input id="message" type="text" style="width: 60%" class="form-control " placeholder="Enter your message here" required maxlength="140" />
-                    <button type="submit" class="btn btn-info btn-sm">Send</button>
-                    <button class="btn location center">Share Location</button>
-                </div>
-            </form>
-        </div>
-    </div>
+                <p><span>{{ message.user }}</span>{{ message.text }}</p>
+                <span>{{ message.date.time }}</span>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div><!--chat-list end-->
+    <div class="typing-msg">
+        <form>
+            <textarea id="message" placeholder="Type a message here"></textarea>
+            <button type="submit"><i class="fa fa-send"></i></button>
+        </form>
+    </div><!--typing-msg end-->
+</div>
 
 <script>
 
@@ -78,7 +66,7 @@ Chats
     });
 
     $('.chat').addClass('active');
-    var user = $('#user').text();
+    var user = "{{ request.user }}";
     // on the form submit
     $('form').submit(function() {
         // gets the elements by ids
@@ -106,12 +94,11 @@ Chats
     });
 
     $(".location").click(function () {
-        console.log("hi");
+        console.log('location');
        var msg = "{{ request.user }} shared his location";
        var url = '{% url "chat:location" room.pk request.user.pk %}' ;
         var room = {{ room.id }};
         // if the message and the name aren't empty or aren't spaces,
-        if(user !== "") {
             // creates the message object
             msgObject = {
                 'room': room,
@@ -123,7 +110,6 @@ Chats
 
             // emits the msgObject to the server
             socket.emit('location', msgObject);
-        }
         return false;
     });
 
@@ -137,13 +123,14 @@ Chats
         time = dateFormat(date, " h:MM tt");
         if(room == {{ room.id }}) {
             if (name != user) {
-                new_message = '<div class="form-control">' + '<p><span >' + name + ':</span>&emsp;' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p>' + '</div>'
+                new_message = '<div class="chat-msg st2">' + '<p><span >' + name + ':</span>&emsp;' + msg + '</p><span>' + time + '</span>' + '</div>'
                 // appends the message to the screen
             }
             else {
-                new_message = '<div class="text-right form-control"><p class="">' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p></div>'
+                new_message = '<div class="text-right chat-msg"><p>' + msg + '</p><span>' + time + '</span></div>'
             }
-            $('#messages-list').append(new_message);
+            $('#message-list').append(new_message);
+            console.log(document.getElementById("message-list"));
         }
         // updates the scroll
         updateScroll();
@@ -159,23 +146,22 @@ Chats
         time = dateFormat(date, " h:MM tt");
         if(room == {{ room.id }}) {
             if (name != user) {
-                new_message = '<a href='+url+'><div class="form-control">' + '<p><span >' + name + ':</span>&emsp;' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p>' + '</div></a>'
+                new_message = '<a href='+url+'><div class="chat-msg st2">' + '<p><span >' + name + ':</span>&emsp;' + msg + '</p><span>' + time + '</span>' + '</div></a>'
                 // appends the message to the screen
             }
             else {
-                new_message = '<a href='+url+'><div class="text-right form-control"><p class="">' + msg + '<sub style="font-size: xx-small">' + time + '</sub></p></div></a>'
+                new_message = '<a href='+url+'><div class="text-right chat-msg"><p>' + msg + '</p><span>' + time + '</span></div></a>'
             }
-            $('#messages-list').append(new_message);
+            $('#message-list').append(new_message);
         }
-        // updates the scroll
+        {#// updates the scroll#}
         updateScroll();
     });
 
     function updateScroll(){
-        var element = document.getElementById("messages-list");
+        var element = document.getElementById("message-list");
         element.scrollTop = element.scrollHeight;
     }
 </script>
 
-</body>
 {% endblock %}

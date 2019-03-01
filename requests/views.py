@@ -20,7 +20,7 @@ def newFriendRequest(request,pk):
     if sender != receiver:
         f=Request(sender=sender,receiver=receiver)
         f.save()
-    return redirect('home',receiver)
+    return redirect('home')
 
 class FriendRequestView(LoginRequiredMixin, generic.ListView):
     template_name= 'requests/requests.html'

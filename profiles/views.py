@@ -34,13 +34,16 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
                 friendship="friends"
         try:
             profile=Profile.objects.get(user=user)
+            friends = profile.friends.count()
         except:
             profile=None
 
         p = set(user.post_owner.all())
         p = reversed(list(p))
 
-        return {'profile' :profile,'user':user,'valid':valid,'friendship':friendship, 'all_posts': p}
+        groups = user.group_member.all()
+
+        return {'profile' :profile,'user':user,'valid':valid,'friendship':friendship, 'all_posts': p, 'friends':friends, 'groups': groups}
 
 class AllProfilesView(LoginRequiredMixin, generic.ListView):
     login_url = '/login'
@@ -119,7 +122,11 @@ def friendList(request):
     context={
         'all_friends':request.user.profile.friends.all()
     }
+
     return render(request,'profiles/friendList.html',context)
+
+
+
 
 @login_required(login_url='/login')
 def removeFriend(request,pk):

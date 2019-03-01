@@ -31,4 +31,5 @@ urlpatterns = [
     path('', include('groups.urls')),
     path('',views.postsView,name='home'),
 
+
 ]

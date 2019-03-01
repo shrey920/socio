@@ -1,4 +1,4 @@
-#!/home/shreyas/PycharmProjects/socio/venv/bin/python
+#!/home/shreyas/socio/virtual_env/bin/python
 
 import sys
 import getopt
