@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9l*r_%7)y*%e(ttkn#y=bqm5yx1au_y0^@f7sa(kal9m*(y01b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 
@@ -140,9 +142,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = ''
-STATICFILES_DIRS = ( os.path.join('static'), )
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = ( os.path.join(BASE_DIR,'static'), )
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+STATICFILES_STORAGE = 'whitenoise.django.CompressedManifestStaticFilesStorage'
+
 
 
 LOGIN_REDIRECT_URL = reverse_lazy("home")
