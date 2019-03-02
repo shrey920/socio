@@ -1,1 +1,1 @@
-web: gunicorn socio.wsgi --log-file -
+web: bin/runsvdir-dyno
