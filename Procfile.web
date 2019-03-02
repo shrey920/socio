@@ -1,2 +1,0 @@
-django: gunicorn socio.wsgi:application --bind 127.0.0.1:$DJANGO_PORT
-node: node nodejs/index.js
