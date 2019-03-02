@@ -20,7 +20,7 @@ io.on('connection', function(socket) {
         io.emit('getMessage', msgObject);
 
         // url of the view that will process
-        var url = 'http://127.0.0.1:8000/save_message/';
+        var url = 'http://socio-net.herokuapp.com/save_message/';
 
         // when the request finishes
 
@@ -36,7 +36,7 @@ io.on('connection', function(socket) {
         io.emit('getLocation', msgObject);
 
         // url of the view that will process
-        var url = 'http://127.0.0.1:8000//';
+        var url = 'http://socio-net.herokuapp.com//';
 
         // when the request finishes
 
@@ -52,7 +52,7 @@ io.on('connection', function(socket) {
         io.emit('getLike', likeObject);
 
         // url of the view that will process
-        var url = 'http://127.0.0.1:8000/posts/like';
+        var url = 'socio-net.herokuapp.com/posts/like';
 
         // when the request finishes
 
@@ -68,7 +68,7 @@ io.on('connection', function(socket) {
         io.emit('getComment', commentObject);
 
         // url of the view that will process
-        var url = 'http://127.0.0.1:8000/posts/comment';
+        var url = 'socio-net.herokuapp.com/posts/comment';
 
         // when the request finishes
 
