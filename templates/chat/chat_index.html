@@ -94,7 +94,6 @@ Chats
     });
 
     $(".location").click(function () {
-        console.log('location');
        var msg = "{{ request.user }} shared his location";
        var url = '{% url "chat:location" room.pk request.user.pk %}' ;
         var room = {{ room.id }};
@@ -130,7 +129,6 @@ Chats
                 new_message = '<div class="text-right chat-msg"><p>' + msg + '</p><span>' + time + '</span></div>'
             }
             $('#message-list').append(new_message);
-            console.log(document.getElementById("message-list"));
         }
         // updates the scroll
         updateScroll();
