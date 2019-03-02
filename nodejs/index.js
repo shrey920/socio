@@ -52,7 +52,7 @@ io.on('connection', function(socket) {
         io.emit('getLike', likeObject);
 
         // url of the view that will process
-        var url = 'socio-net.herokuapp.com/posts/like';
+        var url = 'http://socio-net.herokuapp.com/posts/like';
 
         // when the request finishes
 
@@ -68,7 +68,7 @@ io.on('connection', function(socket) {
         io.emit('getComment', commentObject);
 
         // url of the view that will process
-        var url = 'socio-net.herokuapp.com/posts/comment';
+        var url = 'http://socio-net.herokuapp.com/posts/comment';
 
         // when the request finishes
 

@@ -159,13 +159,10 @@ def likePost(request):
 
         post = Post.objects.get(pk=like_obj['post_id'])
         user = User.objects.get(username=like_obj['user'])
-        print("hi")
 
         if user in post.likes.all():
-            print("remove")
             post.likes.remove(user)
         else:
-            print("add")
             post.likes.add(user)
 
         return HttpResponse("success")
