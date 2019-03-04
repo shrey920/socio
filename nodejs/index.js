@@ -36,7 +36,7 @@ io.on('connection', function(socket) {
         io.emit('getLocation', msgObject);
 
         // url of the view that will process
-        var url = 'http://socio-net.herokuapp.com//';
+        var url = 'http://socio-net.herokuapp.com/';
 
         // when the request finishes
 
