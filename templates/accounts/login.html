@@ -1,0 +1,22 @@
+{% extends "accounts/auth_base.html" %}
+{% load staticfiles %}
+
+{% load crispy_forms_tags %}
+
+
+{% block title %}Log In{% endblock %}
+
+
+
+    {% block form %}
+    <div class="col-sm-4  post-project" style="margin-left: 30%;">
+        <h3>Please Login</h3>
+        <div class="post-project-fields">
+            {% csrf_token %}
+            {% crispy form %}
+            <h5>Dont have an account?</h5>
+            <a href="{% url 'accounts:face' %}"><button class="btn active">Face Login</button></a>
+            <a href="{% url 'accounts:signup' %}"><button class="btn active">Sign up</button></a>
+        </div>
+    </div>
+    {% endblock form %}
