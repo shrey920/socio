@@ -109,8 +109,13 @@ def postsView(request):
     try:
         p=set(request.user.post_owner.all())
         data={}
+        suggestions=[]
         for friend in request.user.profile.friends.all():
             p=p.union(set(friend.post_owner.all()))
+            for f in friend.profile.friends.all():
+                if f not in request.user.friends.all() and f not in suggestions and f != request.user:
+                    suggestions.append(f)
+
         context={
             'all_posts':reversed(list(p)),
             'user':request.user,
@@ -120,9 +125,11 @@ def postsView(request):
     except:
         context = {
             'user': request.user,
+
         }
     data = {
         'context': context,
+        'suggestions': suggestions,
     }
     return render(request,'posts/posts.html',data)
 
