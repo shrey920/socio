@@ -44,7 +44,7 @@ Posts
 											<i class="la la-ellipsis-v"></i>
 										</div><!--sd-title end-->
 										<div class="suggestions-list">
-                                            {% for s in suggestions %}
+                                            {% for s in context.suggestions %}
 											<div class="suggestion-usd">
                                                 <a href="{% url 'profiles:profileView' s %}">
 												<img src="{{ s.profile.picture }}" alt="" width="30px" height="30px">

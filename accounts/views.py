@@ -20,6 +20,7 @@ User = get_user_model()
 def face(request):
     return render(request, 'accounts/face_login.html')
 
+@login_required(login_url='/login')
 def createFace(request):
     return render(request, 'accounts/create_face.html')
 
@@ -59,6 +60,7 @@ def loginFace(request):
         for u in users:
             try :
                 results = face_recognition.compare_faces([u.face.get_face_encoding()], unknown_face_encoding)
+                print(u,results)
                 if results[0]:
                     auth.login(request, u)
                     return HttpResponse(u)

@@ -121,6 +121,7 @@ def postsView(request):
             'user':request.user,
             'friends':request.user.profile.friends.count(),
             'groups':request.user.group_member.all(),
+            'suggestions': suggestions,
         }
     except:
         context = {
@@ -129,7 +130,6 @@ def postsView(request):
         }
     data = {
         'context': context,
-        'suggestions': suggestions,
     }
     return render(request,'posts/posts.html',data)
 
