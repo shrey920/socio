@@ -1,5 +1,7 @@
 certifi==2018.1.18
 chardet==3.0.4
+Click==7.0
+colorama==0.4.1
 Django==2.0.3
 django-authtools==1.6.0
 django-braces==1.12.0
@@ -8,9 +10,13 @@ django-crispy-forms==1.7.1
 django-friendship==1.5.0
 django-grip==1.8.0
 djangorestframework==3.7.7
+dlib==19.17.0
 easy-thumbnails==2.5
+face-recognition==1.2.3
+face-recognition-models==0.3.0
 gripcontrol==3.2.1
 idna==2.6
+numpy==1.16.2
 Pillow==5.0.0
 pubcontrol==2.4.2
 PyJWT==1.6.1
