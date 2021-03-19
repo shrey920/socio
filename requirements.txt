@@ -8,7 +8,7 @@ django-braces==1.13.0
 django-cleanup==4.0.0
 django-crispy-forms==1.8.1
 django-grip==2.0.2
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 dlib==19.19.0
 easy-thumbnails==2.7
 face-recognition==1.2.3
